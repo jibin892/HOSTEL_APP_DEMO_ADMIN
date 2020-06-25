@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/raleway_bold"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textStyle="bold"
+        android:padding="@dimen/activity_horizontal_margin2"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textSize="20sp"
+        android:text="Confirmation message" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/logoutimagediloghome"
+        android:layout_width="30dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+         android:layout_marginStart="@dimen/padding_10"
+         android:background="@drawable/logo" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_marginStart="@dimen/padding_10"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+        <TextView
+            android:id="@+id/logoutdilogname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_10"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+             android:text="name"
+            android:fontFamily="@font/raleway_medium"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/logoutdilogemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+         android:text="email"
+        android:fontFamily="@font/raleway_medium"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textSize="11sp"/>
+    </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_10"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin2"
+        android:text="Are you sure you want to logout"
+        android:fontFamily="@font/raleway_medium"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textSize="16sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin2"
+        android:padding="@dimen/activity_horizontal_margin2">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:textSize="14sp"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/raleway_medium"
+            android:textStyle="bold"
+            android:textColor="@color/red_500"
+            android:layout_gravity="end"
+            android:id="@+id/crane_ok"
+            android:background="@null"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
+
+        <Button
+            android:id="@+id/crane_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/blue_A700"
+            android:layout_toStartOf="@+id/crane_ok"
+            android:fontFamily="@font/raleway_medium"
+            android:gravity="center"
+            android:background="@null"
+            android:text="CANCEL"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

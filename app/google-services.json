@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "946845093342",
+    "firebase_url": "https://hostelapplication-afdda.firebaseio.com",
+    "project_id": "hostelapplication-afdda",
+    "storage_bucket": "hostelapplication-afdda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946845093342:android:a64bb9c9dc7d0cc9d5214f",
+        "android_client_info": {
+          "package_name": "in.techsays.hostel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946845093342-k7u1bjkg0sos9tiib9cifegpp8umccd5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.techsays.hostel",
+            "certificate_hash": "63a07167777e5dc992154249f15aebbd3892f5a9"
+          }
+        },
+        {
+          "client_id": "946845093342-6garlvb92vvdcil8pl3rfe3n0i2v2g8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLO-OXY7lqhRZh0f9e_oTd2UNP-Zlr4ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946845093342-6garlvb92vvdcil8pl3rfe3n0i2v2g8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
