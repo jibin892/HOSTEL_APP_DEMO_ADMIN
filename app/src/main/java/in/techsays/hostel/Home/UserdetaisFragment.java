@@ -257,7 +257,7 @@ et_searcfh=root.findViewById(R.id.et_search);
                                 Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                                 shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,imageUriArray);
-//                                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri1);
+ //                                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri1);
                                 shareIntent.setType("*/*");
                                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Name:"+"\n" + model.getName()+"\n"+"Email:"+"\n" + model.getEmail()+"\n"+"Phone Number:"+"\n" + model.getPhone()+"\n"+"House Phone Number:"+"\n" + model.getHome_phome()+"\n"+"Adhaar Cared Number:"+"\n" + model.getAdhaar_cared_number()+"\n"+"Address:"+"\n" + model.getAddress());
