@@ -275,10 +275,8 @@ et_searcfh=root.findViewById(R.id.et_search);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             mBottomSheetDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                         }
-
                         // set background transparent
                         ((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
-
                         mBottomSheetDialog.show();
                         mBottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
@@ -289,10 +287,6 @@ et_searcfh=root.findViewById(R.id.et_search);
 
                     }
                 });
-
-
-
-
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
