@@ -168,7 +168,7 @@ et_searcfh=root.findViewById(R.id.et_search);
 
 
 
-                         ;
+                         
                         homeimageview=view.findViewById(R.id.bottamshetthometimage);
                         homenameview=(TextView) view.findViewById(R.id.botamshetthometname);
                         homeemailview=(TextView) view.findViewById(R.id.botamshetthometemail);
@@ -450,8 +450,13 @@ et_searcfh=root.findViewById(R.id.et_search);
                                 Bitmap bitmap1 = bitmapDrawable1 .getBitmap();
                                 String bitmapPath1 = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap1,"sometitle", null);
                                 Uri bitmapUri1 = Uri.parse(bitmapPath1);
+                                BitmapDrawable bitmapDrawable11 = ((BitmapDrawable) profileadharback.getDrawable());
+                                Bitmap bitmap11= bitmapDrawable11 .getBitmap();
+                                String bitmapPath11 = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap11,"sometitle", null);
+                                Uri bitmapUri11 = Uri.parse(bitmapPath11);
                                 imageUriArray.add(bitmapUri);
                                 imageUriArray.add(bitmapUri1);
+                                imageUriArray.add(bitmapUri11);
                                 Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                                 shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,imageUriArray);
@@ -461,6 +466,7 @@ et_searcfh=root.findViewById(R.id.et_search);
                                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Name:"+"\n" + model.getName()+"\n"+"Email:"+"\n" + model.getEmail()+"\n"+"Phone Number:"+"\n" + model.getPhone()+"\n"+"House Phone Number:"+"\n" + model.getHome_phome()+"\n"+"Adhaar Cared Number:"+"\n" + model.getAdhaar_cared_number()+"\n"+"Address:"+"\n" + model.getAddress());
                                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
                                 startActivity(Intent.createChooser(shareIntent, "Share this"));
+                                imageUriArray.clear();
                             }
                         });
                         mBottomSheetDialog = new BottomSheetDialog(getActivity());

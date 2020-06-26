@@ -49,7 +49,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         int notificationId = new Random().nextInt(60000);
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Notification notif = new Notification.Builder(this)
-                .setContentTitle("New photo from "+notificationTitle)
+                .setContentTitle(notificationTitle)
                 .setContentText(notificationBody)
                 .setSmallIcon(R.drawable.bell)
                 .setLargeIcon(b)
