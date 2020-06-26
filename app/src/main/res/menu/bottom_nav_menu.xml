@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_note_24"
+        android:icon="@drawable/ic_person_24"
         android:title="@string/title_dashboard" />
 
     <item
@@ -16,15 +16,16 @@
         android:icon="@drawable/ic_payment_24"
         android:title="Payment" />
 
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_account_balance"
+        android:title="Profile" />
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_view_modul"
         android:title="@string/title_notifications" />
 
-    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_account_circle"
-        android:title="Profile" />
+
 
 </menu>

@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Approve_details.Approve"></activity>
+        <activity android:name=".Payment.Payment_view_user"></activity>
+        <activity android:name=".Approve_details.Approve" />
         <activity android:name=".Login_and_Registration.Passwored" />
         <activity android:name=".Settings.Settings_home" />
         <activity android:name=".About_Us.About" />

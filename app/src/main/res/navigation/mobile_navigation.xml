@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="in.techsays.hostel.Home.ProfileFragment"
+        android:name="in.techsays.hostel.Home.TodaypaymentFragment"
         android:label="profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_todaypayment" />
 </navigation>

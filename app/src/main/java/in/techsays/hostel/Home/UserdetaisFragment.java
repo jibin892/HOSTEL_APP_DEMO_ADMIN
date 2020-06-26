@@ -48,6 +48,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import in.techsays.hostel.Adapter.Homelist;
+import in.techsays.hostel.Location.Location_Home;
+import in.techsays.hostel.Payment.Payment_view_user;
 import in.techsays.hostel.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -183,7 +185,17 @@ et_searcfh=root.findViewById(R.id.et_search);
                             }
                         });
 
+                        (view.findViewById(R.id.morepaymentdetails)).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
+
+                                Intent i = new Intent(getActivity(), Payment_view_user.class);
+                                i.putExtra("uid",model.getUid());
+                                startActivity(i);
+
+                            }
+                        });
 
                         (view.findViewById(R.id.morehomelistview)).setOnClickListener(new View.OnClickListener() {
                             @Override
