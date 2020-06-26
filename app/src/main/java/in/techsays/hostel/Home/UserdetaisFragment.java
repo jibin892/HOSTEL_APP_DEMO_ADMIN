@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class UserdetaisFragment extends Fragment {
     ListView notificationlist;
     Query reference;
     LinearLayout view;
+    ImageView adminusrimg;
     private BottomSheetDialog mBottomSheetDialog;
     ImageView homeimageview,homeviewprofileimage;
     private ShimmerFrameLayout mShimmerViewContainer;
@@ -97,7 +99,7 @@ et_searcfh=root.findViewById(R.id.et_search);
             protected void populateView(View v, final Homelist model, int position) {
 
                 final TextView adminusrname = (TextView) v.findViewById(R.id.adminusrname);
-                final ImageView adminusrimg = v.findViewById(R.id.adminusrimg);
+                 adminusrimg = v.findViewById(R.id.adminusrimg);
                 final TextView adminusrroomnumber = (TextView) v.findViewById(R.id.adminusrroomnumber);
                 final TextView adminusremail = (TextView) v.findViewById(R.id.adminusremail);
                 final ImageButton morehomelist = (ImageButton) v.findViewById(R.id.morehomelist);
@@ -267,12 +269,15 @@ et_searcfh=root.findViewById(R.id.et_search);
                         (view.findViewById(R.id.morelisshare)).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Bitmap imgBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.logo);
-                                String imgBitmapPath = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),imgBitmap, String.valueOf(R.string.app_name),null);
-                                Uri imgBitmapUri = Uri.parse(imgBitmapPath);
+
+                                BitmapDrawable bitmapDrawable = ((BitmapDrawable) adminusrimg.getDrawable());
+                                Bitmap bitmap = bitmapDrawable .getBitmap();
+                                String bitmapPath = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap,"sometitle", null);
+                                Uri bitmapUri = Uri.parse(bitmapPath);
+
                                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                                 shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                shareIntent.putExtra(Intent.EXTRA_STREAM,imgBitmapUri);
+                                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri);
                                 shareIntent.setType("*/*");
                                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Name:"+"\n" + model.getName()+"\n"+"Email:"+"\n" + model.getEmail()+"\n"+"Phone Number:"+"\n" + model.getPhone()+"\n"+"House Phone Number:"+"\n" + model.getHome_phome()+"\n"+"Adhaar Cared Number:"+"\n" + model.getAdhaar_cared_number()+"\n"+"Address:"+"\n" + model.getAddress());
