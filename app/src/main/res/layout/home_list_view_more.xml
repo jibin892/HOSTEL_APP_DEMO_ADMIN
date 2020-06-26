@@ -438,8 +438,7 @@
                                 android:layout_marginTop="@dimen/spacing_middle"
                                 android:background="@drawable/edit_text_round_bg_outline"
                                 android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                >
+                                android:orientation="horizontal">
 
                                 <RelativeLayout
                                     android:layout_width="80dp"

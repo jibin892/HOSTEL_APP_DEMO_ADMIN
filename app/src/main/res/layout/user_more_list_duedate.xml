@@ -24,19 +24,19 @@
 
 
     <ImageButton
-        android:id="@+id/morehomelistview"
+        android:id="@+id/morehomelist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginRight="25dp"
         android:tint="@color/blue_A700"
         android:backgroundTint="@color/blue_A700"
-        android:background="@drawable/ic_view_modul" />
+        android:background="@drawable/ic_payment_24" />
 
 
 
     <ImageButton
-        android:id="@+id/morelisshare"
+        android:id="@+id/morelisshare11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -49,7 +49,7 @@
 </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/bottamshetthometimage"
+            android:id="@+id/bottamshetthometimage1"
             android:layout_width="75dp"
             android:layout_marginTop="@dimen/_50sdp"
             android:layout_height="75dp"
@@ -58,7 +58,7 @@
             android:src="@drawable/user_image" />
 
         <TextView
-            android:id="@+id/botamshetthometname"
+            android:id="@+id/botamshetthometname1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
@@ -69,7 +69,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/botamshetthometemail"
+            android:id="@+id/botamshetthometemail1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
@@ -122,7 +122,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profilename1"
+                android:id="@+id/profilename11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profileemail1"
+                android:id="@+id/profileemail11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profilephonenumber1"
+                android:id="@+id/profilephonenumber11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profilehomephonenumber1"
+                android:id="@+id/profilehomephonenumber11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
-                        android:id="@+id/profileroomnumber1"
+                        android:id="@+id/profileroomnumber11"
                         style="@style/EditText.Flat.Grey"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -265,7 +265,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
-                        android:id="@+id/profiledate1"
+                        android:id="@+id/profiledate11"
                         style="@style/EditText.Flat.Grey"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -294,7 +294,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profileaddress1"
+                android:id="@+id/profileaddress11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -320,7 +320,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profilesadharrcarennumber1"
+                android:id="@+id/profilesadharrcarennumber11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -346,7 +346,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profilevillage1"
+                android:id="@+id/profilevillage11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -374,7 +374,7 @@
 
 
             <TextView
-                android:id="@+id/profiledistrict1"
+                android:id="@+id/profiledistrict11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -400,7 +400,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profilepostcode1"
+                android:id="@+id/profilepostcode11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -427,7 +427,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/profilestate1"
+                android:id="@+id/profilestate11"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -458,7 +458,7 @@
                     android:background="@color/grey_3">
 
                     <ImageView
-                        android:id="@+id/profileadharfrend1"
+                        android:id="@+id/profileadharfrend11"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
@@ -493,7 +493,7 @@
                     android:background="@color/grey_3">
 
                     <ImageView
-                        android:id="@+id/profileadharback1"
+                        android:id="@+id/profileadharback11"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
@@ -527,7 +527,7 @@
 
 
         <Button
-            android:id="@+id/callnoehome"
+            android:id="@+id/callnoehome11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

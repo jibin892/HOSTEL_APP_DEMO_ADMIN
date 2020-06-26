@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="in.techsays.hostel.Home.NoticeFragment"
+        android:name="in.techsays.hostel.Home.UserdetaisFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_notice" />
 
@@ -25,9 +25,9 @@
 
     <fragment
         android:id="@+id/navigation_Payment"
-        android:name="in.techsays.hostel.Home.PaymentFragment"
+        android:name="in.techsays.hostel.Home.DuedateFragment"
         android:label="payment"
-        tools:layout="@layout/fragment_payment" />
+        tools:layout="@layout/fragment_duedate" />
 
 
 

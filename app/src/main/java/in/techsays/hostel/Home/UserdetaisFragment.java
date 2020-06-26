@@ -1,6 +1,7 @@
 package in.techsays.hostel.Home;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -24,8 +26,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -48,7 +53,7 @@ import in.techsays.hostel.R;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class NoticeFragment extends Fragment {
+public class UserdetaisFragment extends Fragment {
 
     FirebaseListAdapter<Homelist> adapter;
     ListView notificationlist;
@@ -176,6 +181,33 @@ et_searcfh=root.findViewById(R.id.et_search);
                                 }
                                 startActivity(callIntent);
                             }
+                        });
+
+
+
+                        (view.findViewById(R.id.morehomelistview)).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                final Dialog dialog = new Dialog(getActivity());
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+                                dialog.setContentView(R.layout.edit_more_user_details);
+                                dialog.setCancelable(true);
+
+                                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                                lp.copyFrom(dialog.getWindow().getAttributes());
+                                lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+                                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+
+
+
+
+                                dialog.show();
+                                dialog.getWindow().setAttributes(lp);
+                                }
+
+
                         });
 
                         (view.findViewById(R.id.morelisshare)).setOnClickListener(new View.OnClickListener() {

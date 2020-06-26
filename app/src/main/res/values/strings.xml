@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HOSTEL APPLICATION</string>
+    <string name="app_name">HOSTEL APPLICATION ADMIN</string>
     <string name="sendotp_key">198105AtMheX9RFz5a83cffc</string>
 
     <string name="title_home">Home</string>
