@@ -44,10 +44,12 @@ import java.util.List;
 import java.util.Objects;
 
 import in.techsays.hostel.About_Us.About;
+import in.techsays.hostel.Adapter.Payment_Adapter;
 import in.techsays.hostel.Contact_Us.Contact;
 import in.techsays.hostel.Location.Location_Home;
 import in.techsays.hostel.Login_and_Registration.Login;
 import in.techsays.hostel.Login_and_Registration.User;
+import in.techsays.hostel.Payment.Payment_View_Admin;
 import in.techsays.hostel.R;
 import in.techsays.hostel.Settings.Settings_home;
 
@@ -207,6 +209,13 @@ public class Home_main extends AppCompatActivity {
 
             Intent i2 = new Intent(Home_main.this, Settings_home.class);
             startActivity(i2);
+        }
+
+
+        if (id == R.id.homenavpayment) {
+
+            Intent iq = new Intent(Home_main.this, Payment_View_Admin.class);
+            startActivity(iq);
         }
         if (id == R.id.abouthome) {
 

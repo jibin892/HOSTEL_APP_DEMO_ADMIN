@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:shimmer="http://schemas.android.com/tools"
+    android:background="@color/wite">
+
+    <LinearLayout
+        android:id="@+id/lyt_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:layout_margin="@dimen/spacing_mlarge"
+            android:clipToPadding="false"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_corner5"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_xmlarge"
+                    android:layout_height="@dimen/spacing_xmlarge"
+                    android:padding="@dimen/spacing_middle"
+                    android:tint="@color/grey_80"
+                    app:srcCompat="@drawable/ic_baseline_search_24" />
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="Type outlet name"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/grey_80">
+
+                    <requestFocus />
+
+
+                </EditText>
+
+                <ImageView
+                    android:id="@+id/todayscolluctionadminview"
+                    android:layout_width="@dimen/spacing_xmlarge"
+                    android:layout_height="@dimen/spacing_xmlarge"
+                    android:padding="@dimen/spacing_middle"
+                    android:background="@drawable/btn_corner5"
+                    android:tint="@color/grey_80"
+                    app:srcCompat="@drawable/ic_account_balance" />
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_containerpaymentadminview"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                shimmer:duration="800">
+
+                <!-- Adding 3 rows of placeholders -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/shimer_user" />
+                    <include layout="@layout/shimer_user" />
+                    <include layout="@layout/shimer_user" />
+                    <include layout="@layout/shimer_user" />
+                    <include layout="@layout/shimer_user" />
+                    <include layout="@layout/shimer_user" />
+                    <include layout="@layout/shimer_user" />
+                    <include layout="@layout/shimer_user" />
+
+
+
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <ListView
+                android:id="@+id/userpaymentlistadminview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium"
+                android:scrollbars="vertical"
+                android:scrollingCache="true"
+
+                android:transcriptMode="alwaysScroll" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/white"
+                android:rotation="180" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                />
+
+        </RelativeLayout>
+
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spacing_large" />
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

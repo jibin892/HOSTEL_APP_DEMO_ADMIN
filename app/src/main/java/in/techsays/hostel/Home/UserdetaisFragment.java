@@ -310,6 +310,7 @@ et_searcfh=root.findViewById(R.id.et_search);
                                         map.put("personPhoto",model.getProfile_image());
                                         map.put("Uid",model.getUid() );
                                         map.put("Day",cugrrentDay );
+                                        map.put("Payment_Method","Cash Payment");
                                         map.put("Roomnumber",model.getRoom_Number() );
                                         map.put("ammount", cashammountadd.getText().toString());
                                         map.put("discription",model.getName()+"Room Numbr"+model.getRoom_Number()+"Rent Ammount");

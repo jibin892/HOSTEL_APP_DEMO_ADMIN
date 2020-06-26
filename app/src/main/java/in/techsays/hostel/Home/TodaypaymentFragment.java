@@ -97,14 +97,14 @@ String cugrrentDay;
 
 
 
-        todayscolluction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadtodaypayment();
-            }
-
-
-        });
+      //  todayscolluction.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loadtodaypayment();
+//            }
+//
+//
+//        });
 
 
         return root;
@@ -112,7 +112,7 @@ String cugrrentDay;
     private void displayNotifications() {
         adapter = new FirebaseListAdapter<Payment_Adapter>(getActivity(), Payment_Adapter.class,
                 R.layout.payment_list,
-                reference = FirebaseDatabase.getInstance().getReference().child("payment").orderByChild("Day").equalTo(cugrrentDay)) {
+                reference = FirebaseDatabase.getInstance().getReference().child("adminapproved").orderByChild("Day").equalTo(cugrrentDay)) {
 
              @Override
             protected void populateView(View v, final Payment_Adapter model, int position) {
@@ -127,13 +127,13 @@ String cugrrentDay;
                  final TextView roomnumberpayment = (TextView) v.findViewById(R.id.roomnumberpayment);
 
 
-if(model.getAmmount()==null)
-{
-    todayscolluction.setVisibility(View.INVISIBLE);
-}
-else {
-    todayscolluction.setVisibility(View.VISIBLE);
-}
+//if(model.getAmmount()==null)
+//{
+//    todayscolluction.setVisibility(View.INVISIBLE);
+//}
+//else {
+//    todayscolluction.setVisibility(View.VISIBLE);
+//}
 
                 paymentname.setText(model.getPersonName());
                 Picasso.get().load(model.getPersonPhoto()).into(paymentimage);
@@ -142,7 +142,7 @@ else {
                 paymentammount.setText(model.getAmmount());
                 paymenttime.setText(model.getPaymentTime());
                 paymentdate.setText(model.getPaymentdate());
-               // roomnumberpayment.setText(model.getRoomnumber());
+                roomnumberpayment.setText(model.getRoomnumber());
 
 
 
@@ -163,21 +163,20 @@ else {
 
 
 
-                                int  sum=0;
-
-                                for (DataSnapshot ds:dataSnapshot.getChildren()
-                                ) {
-                                    Payment_Adapter p=ds.getValue(Payment_Adapter.class);
-
-
-                                        int am=Integer.parseInt(p.getAmmount());
-                                        sum=sum+am;
-                                        amounttotal=String.valueOf(sum);
-
-                                        Toast.makeText(mActivity, String.valueOf(sum), Toast.LENGTH_SHORT).show();
-
-
-                                }
+//                                int  sum=0;
+//
+//                                for (DataSnapshot ds:dataSnapshot.getChildren()
+//                                ) {
+//                                    Payment_Adapter p=ds.getValue(Payment_Adapter.class);
+//
+//
+//                                        int am=Integer.parseInt(p.getAmmount());
+//                                        sum=sum+am;
+//                                        amounttotal=String.valueOf(sum);
+//
+//
+//
+//                                }
                             }
 
 
@@ -220,39 +219,39 @@ else {
 
     }
 
-    private void loadtodaypayment() {
+//    private void loadtodaypayment() {
+//
+//        view = getLayoutInflater().inflate(R.layout.botamsheet_todaymmount, null);
+//        todayfuulammount=view.findViewById(R.id.todayfuulammount);
+//        todayfuulammount.setText(String.valueOf(amounttotal));
+//
+//        (view.findViewById(R.id.close123)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mBottomSheetDialog.hide();
+//            }
+//        });
+//
+//
+//
+//
+//        mBottomSheetDialog = new BottomSheetDialog(getActivity());
+//        mBottomSheetDialog.setContentView(view);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            mBottomSheetDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
+//
+//        // set background transparent
+//        ((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+//
+//        mBottomSheetDialog.show();
+//        mBottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            @Override
+//            public void onDismiss(DialogInterface dialog) {
+//                mBottomSheetDialog = null;
+//            }
+//        });
 
-        view = getLayoutInflater().inflate(R.layout.botamsheet_todaymmount, null);
-        todayfuulammount=view.findViewById(R.id.todayfuulammount);
-        todayfuulammount.setText(String.valueOf(amounttotal));
-
-        (view.findViewById(R.id.close123)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mBottomSheetDialog.hide();
-            }
-        });
-
-
-
-
-        mBottomSheetDialog = new BottomSheetDialog(getActivity());
-        mBottomSheetDialog.setContentView(view);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mBottomSheetDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-
-        // set background transparent
-        ((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
-
-        mBottomSheetDialog.show();
-        mBottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                mBottomSheetDialog = null;
-            }
-        });
-
-    }
+ //   }
 
 }
