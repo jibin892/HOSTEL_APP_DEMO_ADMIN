@@ -44,8 +44,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.protobuf.compiler.PluginProtos;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.techsays.hostel.Adapter.Homelist;
@@ -62,6 +64,7 @@ public class UserdetaisFragment extends Fragment {
     ListView notificationlist;
     Query reference;
     LinearLayout view;
+    ArrayList<Uri> imageUriArray = new ArrayList<Uri>();
     ImageView adminusrimg;
     private BottomSheetDialog mBottomSheetDialog;
     ImageView homeimageview,homeviewprofileimage;
@@ -249,10 +252,12 @@ et_searcfh=root.findViewById(R.id.et_search);
                                 Bitmap bitmap1 = bitmapDrawable1 .getBitmap();
                                 String bitmapPath1 = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap1,"sometitle", null);
                                 Uri bitmapUri1 = Uri.parse(bitmapPath1);
-                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                                imageUriArray.add(bitmapUri);
+                                imageUriArray.add(bitmapUri1);
+                                Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                                 shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri);
-                                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri1);
+                                shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,imageUriArray);
+//                                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri1);
                                 shareIntent.setType("*/*");
                                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Name:"+"\n" + model.getName()+"\n"+"Email:"+"\n" + model.getEmail()+"\n"+"Phone Number:"+"\n" + model.getPhone()+"\n"+"House Phone Number:"+"\n" + model.getHome_phome()+"\n"+"Adhaar Cared Number:"+"\n" + model.getAdhaar_cared_number()+"\n"+"Address:"+"\n" + model.getAddress());
