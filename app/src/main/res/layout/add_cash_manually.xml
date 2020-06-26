@@ -120,9 +120,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingRight="@dimen/spacing_middle"
-                                android:text="Name"
+                                android:text="Amount"
                                 android:textColor="@android:color/black" />
-                            <TextView
+                            <EditText
                                 android:id="@+id/profilename"
                                 style="@style/EditText.Flat.Grey"
                                 android:layout_width="match_parent"
@@ -130,10 +130,11 @@
                                 android:layout_marginTop="@dimen/padding_10"
                                 android:layout_gravity="start"
                                 android:gravity="center"
+                                android:inputType="number"
                                 android:background="@drawable/edit_text_round_bg_outline"
                                 android:minHeight="@dimen/spacing_xmlarge"
                                 android:paddingRight="@dimen/spacing_middle"
-                                android:text="Roberts Turner"
+                                android:text="4000"
                                 android:textColor="@android:color/black" />
 
 
@@ -143,10 +144,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/padding_10"
                                 android:paddingRight="@dimen/spacing_middle"
-                                android:text="Postcode"
+                                android:text="Room Number"
                                 android:textColor="@android:color/black" />
                             <TextView
-                                android:id="@+id/profilepostcode"
+                                android:id="@+id/addcashmanualluroomnumber"
                                 style="@style/EditText.Flat.Grey"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

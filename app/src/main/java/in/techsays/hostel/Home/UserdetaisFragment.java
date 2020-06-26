@@ -217,7 +217,8 @@ et_searcfh=root.findViewById(R.id.et_search);
                                 lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
 
-
+                                final TextView addcashmanualluroomnumber = (TextView) dialog.findViewById(R.id.addcashmanualluroomnumber);
+                                addcashmanualluroomnumber.setText(model.getRoom_Number());
 
                                  final ImageButton btnclosehomelist = (ImageButton) dialog.findViewById(R.id.btnclosehomelistmore);
 
@@ -270,7 +271,7 @@ et_searcfh=root.findViewById(R.id.et_search);
                             @Override
                             public void onClick(View view) {
 
-                                BitmapDrawable bitmapDrawable = ((BitmapDrawable) adminusrimg.getDrawable());
+                                BitmapDrawable bitmapDrawable = ((BitmapDrawable) homeimageview.getDrawable());
                                 Bitmap bitmap = bitmapDrawable .getBitmap();
                                 String bitmapPath = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap,"sometitle", null);
                                 Uri bitmapUri = Uri.parse(bitmapPath);
