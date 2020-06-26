@@ -182,7 +182,7 @@ et_searcfh=root.findViewById(R.id.et_search);
                                     return;
                                 }
                                 startActivity(callIntent);
-                            }
+                                               }
                         });
 
                         (view.findViewById(R.id.morepaymentdetails)).setOnClickListener(new View.OnClickListener() {
@@ -193,6 +193,19 @@ et_searcfh=root.findViewById(R.id.et_search);
                                 Intent i = new Intent(getActivity(), Payment_view_user.class);
                                 i.putExtra("uid",model.getUid());
                                 startActivity(i);
+
+                            }
+                        });
+
+
+
+
+                        (view.findViewById(R.id.morepaymentaddcash)).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+
+                               
 
                             }
                         });
