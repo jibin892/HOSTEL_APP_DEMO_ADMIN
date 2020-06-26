@@ -76,22 +76,13 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-
-
-
-
         selectimage_from_gal =  root.findViewById(R.id.selectimage_from_gal);
         notificationupload= root.findViewById(R.id.notificationupload);
         discription = (EditText)root.findViewById(R.id.discriptionnot);
         imagepick = (ImageView)root.findViewById(R.id.imagepick);
-
-
-
         selectimage_from_gal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 selectImage(getActivity());
 
 
@@ -108,21 +99,17 @@ public class NotificationsFragment extends Fragment {
         notificationupload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final ProgressDialog progress = new ProgressDialog(getActivity());
                 progress.setTitle("please wait");
                 progress.setMessage("Wait a Moment...");
                 progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
                 progress.show();
-
-
                 imagepick.setDrawingCacheEnabled(true);
                 imagepick.buildDrawingCache();
                 Bitmap bitmap = imagepick.getDrawingCache();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                 byte[] data = baos.toByteArray();
-
                 mUploadTask = Notif.putBytes(data);
                 mUploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -132,17 +119,11 @@ public class NotificationsFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-
                         Notif.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-
                                 final String notificationimg=uri.toString();
-
-
-
                                 DatabaseReference object = FirebaseDatabase.getInstance().getReference();
-
                                 DatabaseReference namesRef = object.child("notification").push();
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("Notificationimage", notificationimg);
@@ -151,21 +132,12 @@ public class NotificationsFragment extends Fragment {
                                 map.put("stamp", timeStamp);
                                 namesRef.updateChildren(map);
                                 object.child("notification");
-
-
                                 object.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                                         progress.dismiss();
                                         imagepick.setImageResource(0);
-
- 
-
-
                                     }
-
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
 
