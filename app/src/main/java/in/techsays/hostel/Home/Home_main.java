@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
  import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -75,6 +76,7 @@ public class Home_main extends AppCompatActivity {
             }
         }
         setContentView(R.layout.navigation);
+        FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
         EnableRuntimePermission();
          she=getSharedPreferences("log",MODE_PRIVATE);
         SharedPreferences.Editor e=she.edit();

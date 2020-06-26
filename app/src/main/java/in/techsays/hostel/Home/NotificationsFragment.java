@@ -138,7 +138,6 @@ public class NotificationsFragment extends Fragment {
                                         progress.dismiss();
                                         imagepick.setImageResource(0);
                                     }
-
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
 
