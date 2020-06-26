@@ -241,14 +241,18 @@ et_searcfh=root.findViewById(R.id.et_search);
                             @Override
                             public void onClick(View view) {
 
-                                BitmapDrawable bitmapDrawable = ((BitmapDrawable) adminusrimg.getDrawable());
+                                BitmapDrawable bitmapDrawable = ((BitmapDrawable) homeimageview.getDrawable());
                                 Bitmap bitmap = bitmapDrawable .getBitmap();
                                 String bitmapPath = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap,"sometitle", null);
                                 Uri bitmapUri = Uri.parse(bitmapPath);
-
+                                BitmapDrawable bitmapDrawable1 = ((BitmapDrawable) profileadharfrend.getDrawable());
+                                Bitmap bitmap1 = bitmapDrawable1 .getBitmap();
+                                String bitmapPath1 = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap1,"sometitle", null);
+                                Uri bitmapUri1 = Uri.parse(bitmapPath1);
                                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                                 shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri);
+                                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri1);
                                 shareIntent.setType("*/*");
                                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Name:"+"\n" + model.getName()+"\n"+"Email:"+"\n" + model.getEmail()+"\n"+"Phone Number:"+"\n" + model.getPhone()+"\n"+"House Phone Number:"+"\n" + model.getHome_phome()+"\n"+"Adhaar Cared Number:"+"\n" + model.getAdhaar_cared_number()+"\n"+"Address:"+"\n" + model.getAddress());
