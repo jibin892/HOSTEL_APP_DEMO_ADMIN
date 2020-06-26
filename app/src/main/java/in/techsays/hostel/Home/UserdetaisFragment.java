@@ -48,6 +48,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import in.techsays.hostel.Adapter.Homelist;
+import in.techsays.hostel.Approve_details.Approve;
 import in.techsays.hostel.Location.Location_Home;
 import in.techsays.hostel.Payment.Payment_view_user;
 import in.techsays.hostel.R;
@@ -204,7 +205,35 @@ et_searcfh=root.findViewById(R.id.et_search);
                             @Override
                             public void onClick(View view) {
 
+                                final Dialog dialog = new Dialog(getActivity());
+                                dialog.setContentView(R.layout.add_cash_manually);
+                                dialog.setCancelable(true);
 
+                                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                                lp.copyFrom(dialog.getWindow().getAttributes());
+                                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+
+
+
+                                 final ImageButton btnclosehomelist = (ImageButton) dialog.findViewById(R.id.btnclosehomelistmore);
+
+
+
+
+                                btnclosehomelist.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+
+
+
+                                dialog.show();
+                                dialog.getWindow().setAttributes(lp);
 
 
                             }
