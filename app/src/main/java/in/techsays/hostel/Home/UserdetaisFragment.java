@@ -1,20 +1,25 @@
 package in.techsays.hostel.Home;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,31 +31,54 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatRatingBar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.common.data.DataHolder;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.protobuf.compiler.PluginProtos;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import in.techsays.hostel.Adapter.Homelist;
+import in.techsays.hostel.Adapter.Payment_Adapter;
+import in.techsays.hostel.Approve_details.Approve;
 import in.techsays.hostel.Location.Location_Home;
 import in.techsays.hostel.Payment.Payment_view_user;
 import in.techsays.hostel.R;
@@ -61,12 +89,14 @@ import static android.content.Context.MODE_PRIVATE;
 public class UserdetaisFragment extends Fragment {
 
     FirebaseListAdapter<Homelist> adapter;
-    ListView notificationlist;
-    Query reference;
+    FirebaseListAdapter<Homelist> adapterroomate;
+
+    ListView notificationlist,notificationlistroommate;
+    Query reference,referenceromate;
     LinearLayout view;
     ArrayList<Uri> imageUriArray = new ArrayList<Uri>();
     ImageView adminusrimg;
-    private BottomSheetDialog mBottomSheetDialog;
+    private BottomSheetDialog mBottomSheetDialog,mBottomSheetDialog1;
     ImageView homeimageview,homeviewprofileimage;
     private ShimmerFrameLayout mShimmerViewContainer;
     TextView homenameview,homeemailview,homeviewprofilename,homeviewprofileemail;
@@ -75,6 +105,11 @@ public class UserdetaisFragment extends Fragment {
     public static final int DIALOG_QUEST_CODE = 300;
     SharedPreferences roomnumber,sh;
     EditText et_searcfh;
+     String payid;
+    RelativeLayout parent_view;
+    private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
+    String currentDate,cugrrentDay;
+    ProgressDialog progress;
     ImageView   profileadharback,profileadharfrend  ;
      TextView profilename,profileemail,profilephonenumber,profilehomephonenumber,profileroomnumber,profiledate,profileaddress,
             profilesadharrcarennumber,profilevillage,profiledistrict,profilesate,profilepatcode;
@@ -85,10 +120,15 @@ public class UserdetaisFragment extends Fragment {
 
         notificationlist = root.findViewById(R.id.userlis);
         mShimmerViewContainer = root.findViewById(R.id.shimmer_view_container1);
+        parent_view = root.findViewById(R.id.parent_view);
+
         mShimmerViewContainer.startShimmer();
 et_searcfh=root.findViewById(R.id.et_search);
 
          sh = getActivity().getSharedPreferences("userdata", MODE_PRIVATE);
+          currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
+        cugrrentDay = String.valueOf(gsdf.format(new Date()));
 
         displayNotifications();
         return root;
@@ -105,6 +145,9 @@ et_searcfh=root.findViewById(R.id.et_search);
                 final TextView adminusrroomnumber = (TextView) v.findViewById(R.id.adminusrroomnumber);
                 final TextView adminusremail = (TextView) v.findViewById(R.id.adminusremail);
                 final ImageButton morehomelist = (ImageButton) v.findViewById(R.id.morehomelist);
+                final ImageButton callpersondirectuserlist = (ImageButton) v.findViewById(R.id.callpersondirectuserlist);
+                final ImageButton callhomepersondirectuserlist = (ImageButton) v.findViewById(R.id.callhomepersondirectuserlist);
+                final ImageButton userlistshoowrommnumber = (ImageButton) v.findViewById(R.id.userlistshoowrommnumber);
 
 
 
@@ -210,7 +253,161 @@ et_searcfh=root.findViewById(R.id.et_search);
                             public void onClick(View view) {
 
 
-                               
+                                final Dialog dialogcashadd = new Dialog(getActivity());
+                                dialogcashadd.setContentView(R.layout.add_cash_manually);
+                                dialogcashadd.setCancelable(true);
+
+                                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                                lp.copyFrom(dialogcashadd.getWindow().getAttributes());
+                                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+                                final    EditText   cashammountadd=dialogcashadd.findViewById(R.id.cashammountadd);
+                                final   TextView   addcashmanualluroomnumber=dialogcashadd.findViewById(R.id.addcashmanualluroomnumber);
+                                final   TextView     addcashmanualludate=dialogcashadd.findViewById(R.id.addcashmanualludate);
+                                final  ImageView     profilefragmentimageaddcash=dialogcashadd.findViewById(R.id.profilefragmentimageaddcash);
+                                final  TextView     profilefragmentnameaddcash=dialogcashadd.findViewById(R.id.profilefragmentnameaddcash);
+                                final   TextView     profilefragmentemailaddcash=dialogcashadd.findViewById(R.id.profilefragmentemailaddcash);
+                                final   TextView     addcashsudmit=dialogcashadd.findViewById(R.id.addcashsudmit);
+
+
+                                cashammountadd.setText(model.getRent_Amount());
+                                addcashmanualluroomnumber.setText(model.getRoom_Number());
+                                addcashmanualludate.setText(currentDate);
+
+
+                                Picasso.get().load(model.getProfile_image()).into(profilefragmentimageaddcash);
+
+                                profilefragmentemailaddcash.setText(model.getEmail());
+                                profilefragmentnameaddcash.setText(model.getName());
+
+
+
+                                 final ImageButton btnclosehomelist = (ImageButton) dialogcashadd.findViewById(R.id.btnclosehomelistmore);
+                                btnclosehomelist.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogcashadd.dismiss();
+                                    }
+                                });
+
+                                addcashsudmit.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+
+                                    payid=getRandomString(15);
+                                        progress = new ProgressDialog(getActivity());
+                                        progress.setMessage("Please wait...");
+                                        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+// progress.setIndeterminate(true);
+                                        progress.show();
+                                        DatabaseReference object = FirebaseDatabase.getInstance().getReference();
+                                         DatabaseReference namesRef = object.child("payment").push();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("personName", model.getName());
+                                        map.put("personEmail",model.getEmail());
+                                        map.put("personPhoto",model.getProfile_image());
+                                        map.put("Uid",model.getUid() );
+                                        map.put("Day",cugrrentDay );
+                                        map.put("Roomnumber",model.getRoom_Number() );
+                                        map.put("ammount", cashammountadd.getText().toString());
+                                        map.put("discription",model.getName()+"Room Numbr"+model.getRoom_Number()+"Rent Ammount");
+                                        map.put("transaction_id", payid);
+                                        String timeStamp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+                                        map.put("paymenttime", timeStamp);
+                                        map.put("phone_number", model.getPhone());
+                                        String currentTime = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
+                                         map.put("paymentTime", currentTime);
+                                        map.put("paymentdate",currentDate);
+                                        namesRef.updateChildren(map);
+                                        object.child("payment");
+                                        object.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                dialogcashadd.dismiss();
+                                                    progress.dismiss();
+                                                     tostsususs();
+                                             //   smsuser();
+
+
+
+                                            }
+
+                                            private void tostsususs() {
+
+                                                Toast toast = new Toast(getActivity());
+                                                toast.setDuration(Toast.LENGTH_LONG);
+
+                                                //inflate view
+                                                View custom_view = getLayoutInflater().inflate(R.layout.snakbar_susseus, null);
+                                                ((TextView) custom_view.findViewById(R.id.message)).setText("Success!");
+                                                ((ImageView) custom_view.findViewById(R.id.icon)).setImageResource(R.drawable.checkmark);
+                                                ((CardView) custom_view.findViewById(R.id.parent_view)).setCardBackgroundColor(getResources().getColor(R.color.green_500));
+                                                toast.setView(custom_view);
+                                                toast.show();
+                                            }
+
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+                                    }
+                                    private void smsuser() {
+
+
+                                        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://techsays.in/paysms.php",
+                                                new Response.Listener<String>() {
+                                                    @Override
+                                                    public void onResponse(String response) {
+                                                        Toast.makeText(getActivity(),response,Toast.LENGTH_LONG).show();
+//dilogsuseuss();
+                                                        smsuser();
+                                                    }
+
+                                                },
+                                                new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+//You can handle error here if you want
+                                                    }
+
+                                                }) {
+
+                                            @Override
+                                            protected Map<String, String> getParams() throws AuthFailureError {
+                                                Map<String, String> params = new HashMap<>();
+//Adding parameters to request
+                                                params.put("phone",model.getPhone());
+                                                params.put("name",model.getName());
+                                                params.put("pay",cashammountadd.getText().toString());
+                                                params.put("id",payid);
+//returning parameter
+                                                return params;
+                                            }
+                                        };
+                                        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                                        requestQueue.add(stringRequest);
+
+
+
+
+
+
+                                     }
+                                });
+
+
+
+
+
+
+
+                                dialogcashadd.show();
+                                dialogcashadd.getWindow().setAttributes(lp);
 
                             }
                         });
@@ -285,6 +482,228 @@ et_searcfh=root.findViewById(R.id.et_search);
                     }
                 });
 
+                callpersondirectuserlist.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent callIntentt = new Intent(Intent.ACTION_CALL);
+                        callIntentt.setData(Uri.parse("tel:" + model.getPhone()));
+                        callIntentt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        startActivity(callIntentt);
+
+
+                    }
+                });
+
+                callhomepersondirectuserlist.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent callIntentt = new Intent(Intent.ACTION_CALL);
+                        callIntentt.setData(Uri.parse("tel:" + model.getHome_phome()));
+                        callIntentt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        startActivity(callIntentt);
+
+
+                    }
+                });
+
+
+
+
+                userlistshoowrommnumber.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        final Dialog dialogroommate = new Dialog(getActivity());
+                        dialogroommate.setContentView(R.layout.view_romemates_admin);
+                        dialogroommate.setCancelable(true);
+
+                        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                        lp.copyFrom(dialogroommate.getWindow().getAttributes());
+                        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+                           notificationlistroommate = dialogroommate.findViewById(R.id.userlisroommate);
+                       ImageView romateclose = dialogroommate.findViewById(R.id.romateclose);
+                        ImageView romatelishomeimage = dialogroommate.findViewById(R.id.romatelishomeimage);
+
+                        TextView romatelisname = dialogroommate.findViewById(R.id.romatelisname);
+                        TextView romatelisemail = dialogroommate.findViewById(R.id.romatelisemail);
+                        Picasso.get().load(model.getProfile_image()).into(romatelishomeimage);
+                        romatelisemail.setText(model.getEmail());
+                        romatelisname.setText(model.getName());
+
+
+
+                        romateclose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogroommate.dismiss();
+                            }
+                        });
+
+
+                        adapterroomate = new FirebaseListAdapter<Homelist>(getActivity(), Homelist.class,
+                                R.layout.rommete_list,
+                                referenceromate = FirebaseDatabase.getInstance().getReference().child("adminapproved").orderByChild("Room_Number").equalTo(model.getRoom_Number())) {
+
+                            @Override
+                            protected void populateView(View romate, final Homelist models, int position) {
+
+                                final TextView adminusrnameromateimgview = (TextView) romate.findViewById(R.id.adminusrname1);
+                                final ImageView romateimgview = (ImageView) romate.findViewById(R.id.romateimgview);
+                                final TextView adminusrroomnumberromateimgview = (TextView) romate.findViewById(R.id.adminusrroomnumber1);
+                                final TextView adminusremailromateimgview = (TextView) romate.findViewById(R.id.adminusremailss);
+                                final ImageButton callromateviewnumber = (ImageButton) romate.findViewById(R.id.callromateviewnumber);
+                                final ImageButton callromateviewnumberhouse = (ImageButton) romate.findViewById(R.id.callromateviewnumberhouse);
+                            final ImageButton romatedatashare = (ImageButton) romate.findViewById(R.id.romatedatashare);
+
+
+
+
+                                adminusrnameromateimgview.setText(models.getName());
+                                Picasso.get().load(models.getProfile_image()).into(romateimgview);
+                                adminusrroomnumberromateimgview.setText(models.getRoom_Number());
+                          adminusremailromateimgview.setText(models.getEmail());
+
+
+                                romatedatashare.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+
+                                        BitmapDrawable bitmapDrawable = ((BitmapDrawable) romateimgview.getDrawable());
+                                        Bitmap bitmap = bitmapDrawable .getBitmap();
+                                        String bitmapPath = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap,"sometitle", null);
+                                        Uri bitmapUri = Uri.parse(bitmapPath);
+                                         imageUriArray.add(bitmapUri);
+                                         Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                                        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,imageUriArray);
+//                                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri1);
+                                        shareIntent.setType("*/*");
+                                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Name:"+"\n" + models.getName()+"\n"+"Email:"+"\n" + models.getEmail()+"\n"+"Phone Number:"+"\n" + models.getPhone()+"\n"+"House Phone Number:"+"\n" + models.getHome_phome()+"\n"+"Adhaar Cared Number:"+"\n" + models.getAdhaar_cared_number()+"\n"+"Address:"+"\n" + models.getAddress());
+                                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
+                                        startActivity(Intent.createChooser(shareIntent, "Share this"));
+
+                                    }
+                                });
+                                callromateviewnumber.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+
+                                        Intent callInte  = new Intent(Intent.ACTION_CALL);
+                                        callInte .setData(Uri.parse("tel:" + models.getPhone()));
+                                        callInte .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                            // TODO: Consider calling
+                                            //    ActivityCompat#requestPermissions
+                                            // here to request the missing permissions, and then overriding
+                                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                            //                                          int[] grantResults)
+                                            // to handle the case where the user grants the permission. See the documentation
+                                            // for ActivityCompat#requestPermissions for more details.
+                                            return;
+                                        }
+                                        startActivity(callInte);
+
+
+                                    }
+                                });
+                                callromateviewnumberhouse.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+
+                                        Intent callIntes  = new Intent(Intent.ACTION_CALL);
+                                        callIntes .setData(Uri.parse("tel:" + models.getHome_phome()));
+                                        callIntes .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                            // TODO: Consider calling
+                                            //    ActivityCompat#requestPermissions
+                                            // here to request the missing permissions, and then overriding
+                                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                            //                                          int[] grantResults)
+                                            // to handle the case where the user grants the permission. See the documentation
+                                            // for ActivityCompat#requestPermissions for more details.
+                                            return;
+                                        }
+                                        startActivity(callIntes);
+
+
+                                    }
+                                });
+
+
+                                referenceromate.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+
+
+                                //  }
+
+
+
+
+                            }
+
+
+
+                        };
+
+
+                        notificationlistroommate.setAdapter(adapterroomate);
+                        adapterroomate.notifyDataSetChanged();
+
+
+
+
+
+                        dialogroommate.show();
+                        dialogroommate.getWindow().setAttributes(lp);
+
+
+                    }
+                });
+
 
 
 
@@ -332,6 +751,14 @@ et_searcfh=root.findViewById(R.id.et_search);
 
     }
 
+    private static String getRandomString(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        return sb.toString();
+    }
 
 
 }

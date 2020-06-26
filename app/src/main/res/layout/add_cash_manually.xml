@@ -22,7 +22,7 @@
         android:padding="@dimen/spacing_large">
 
         <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/profilefragmentimage"
+            android:id="@+id/profilefragmentimageaddcash"
             android:layout_width="@dimen/spacing_xxlarge"
             android:layout_height="@dimen/spacing_xxlarge"
             android:src="@drawable/user_image"
@@ -41,7 +41,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/profilefragmentname"
+                android:id="@+id/profilefragmentnameaddcash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -61,7 +61,7 @@
                     android:layout_height="0dp" />
 
                 <TextView
-                    android:id="@+id/profilefragmentemail"
+                    android:id="@+id/profilefragmentemailaddcash"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
