@@ -123,7 +123,7 @@
                                 android:text="Amount"
                                 android:textColor="@android:color/black" />
                             <EditText
-                                android:id="@+id/profilename"
+                                android:id="@+id/cashammountadd"
                                 style="@style/EditText.Flat.Grey"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -250,8 +250,8 @@
 
 
         <TextView
-            android:id="@+id/bt_submit"
-            android:text="APPROVE"
+            android:id="@+id/addcashsudmit"
+            android:text="ADD CASH"
             android:textColor="@color/wite"
             android:layout_gravity="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"

@@ -5,12 +5,12 @@ public class Homelist {
 
 
     private String Uid,Email,Profile_image,Name,Date,Room_Number,Phone,Home_phome,Address,Adhaarcard_frentside_image,aAhaarcard_backside_image,
-            Adhaar_cared_number,Village,District,Postel_code,State,YearOfBirth,Passwored,Age,Gender,Staying_puropse,Adhaar_cared_name;
+            Adhaar_cared_number,Village,District,Postel_code,State,YearOfBirth,Passwored,Age,Gender,Staying_puropse,Adhaar_cared_name,Rent_Amount;
 
 
     public Homelist(String Uid, String Email,String Profile_image,String Name,String Date,String Room_Number,String Phone,String Home_phome,String Address,
                     String Adhaarcard_frentside_image,String aAhaarcard_backside_image,String Adhaar_cared_number,String Village,String District,String Postel_code,
-                    String State,String YearOfBirth,String Passwored,String Age,String Gender,String Staying_puropse,String Adhaar_cared_name) {
+                    String State,String YearOfBirth,String Passwored,String Age,String Gender,String Staying_puropse,String Adhaar_cared_name,String Rent_Amount) {
         this.Uid = Uid;
         this.Email = Email;
         this.Profile_image = Profile_image;
@@ -38,6 +38,7 @@ public class Homelist {
         this.Staying_puropse = Staying_puropse;
 
         this.Adhaar_cared_name = Adhaar_cared_name;
+        this.Rent_Amount = Rent_Amount;
 
 
     }
@@ -233,6 +234,16 @@ public class Homelist {
     public void setAdhaar_cared_name(String Adhaar_cared_name) {
         this.Adhaar_cared_name = Adhaar_cared_name;
     }
+
+    public String getRent_Amount() {
+        return Rent_Amount;
+    }
+
+    public void setRent_Amount(String Rent_Amount) {
+        this.Rent_Amount = Rent_Amount;
+    }
+
+
 
 
 }

@@ -1,7 +1,9 @@
 package in.techsays.hostel.Home;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,18 +38,33 @@ import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.common.data.DataHolder;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import in.techsays.hostel.Adapter.Homelist;
 import in.techsays.hostel.Approve_details.Approve;
@@ -73,6 +91,9 @@ public class UserdetaisFragment extends Fragment {
     public static final int DIALOG_QUEST_CODE = 300;
     SharedPreferences roomnumber,sh;
     EditText et_searcfh;
+    String cugrrentDay;
+    private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
+    ProgressDialog progress;
     ImageView   profileadharback,profileadharfrend  ;
      TextView profilename,profileemail,profilephonenumber,profilehomephonenumber,profileroomnumber,profiledate,profileaddress,
             profilesadharrcarennumber,profilevillage,profiledistrict,profilesate,profilepatcode;
@@ -87,6 +108,8 @@ public class UserdetaisFragment extends Fragment {
 et_searcfh=root.findViewById(R.id.et_search);
 
          sh = getActivity().getSharedPreferences("userdata", MODE_PRIVATE);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
+        cugrrentDay = String.valueOf(gsdf.format(new Date()));
 
         displayNotifications();
         return root;
@@ -221,6 +244,105 @@ et_searcfh=root.findViewById(R.id.et_search);
                                 addcashmanualluroomnumber.setText(model.getRoom_Number());
 
                                  final ImageButton btnclosehomelist = (ImageButton) dialog.findViewById(R.id.btnclosehomelistmore);
+                                final TextView addcashsudmit = (TextView) dialog.findViewById(R.id.addcashsudmit);
+
+                                final EditText cashammountadd = (EditText) dialog.findViewById(R.id.cashammountadd);
+
+                                cashammountadd.setText(model.getRent_Amount());
+
+                                addcashsudmit.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        final String payid =getRandomString(15);
+                                        progress = new ProgressDialog(getActivity());
+                                        progress.setMessage("Please wait...");
+                                        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+// progress.setIndeterminate(true);
+                                        progress.show();
+                                        DatabaseReference object = FirebaseDatabase.getInstance().getReference();
+                                         DatabaseReference namesRef = object.child("payment").push();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("personName", model.getName());
+                                        map.put("personEmail",model.getEmail());
+                                        map.put("personPhoto",model.getProfile_image());
+                                        map.put("Uid",model.getUid() );
+                                        map.put("Day",cugrrentDay );
+                                        map.put("Roomnumber",model.getRoom_Number() );
+                                        map.put("ammount", cashammountadd.getText().toString());
+                                        map.put("discription", model.getName()+"Room Number"+model.getRoom_Number()+"Rent Amount");
+                                        map.put("transaction_id", payid);
+                                        String timeStamp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+                                        map.put("paymenttime", timeStamp);
+                                        map.put("phone_number", model.getPhone());
+                                        String currentTime = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
+                                        String currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
+                                        map.put("paymentTime", currentTime);
+                                        map.put("paymentdate",currentDate);
+                                        namesRef.updateChildren(map);
+                                        object.child("payment");
+                                        object.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                                                smsuser();
+
+                                            }
+                                            private void smsuser() {
+
+
+                                                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://techsays.in/paysms.php",
+                                                        new Response.Listener<String>() {
+                                                            @Override
+                                                            public void onResponse(String response) {
+                                                                progress.cancel();
+                                                                Toast.makeText(getActivity() ,response,Toast.LENGTH_LONG).show();
+//dilogsuseuss();
+                                                                smsuser();
+                                                            }
+
+                                                        },
+                                                        new Response.ErrorListener() {
+                                                            @Override
+                                                            public void onErrorResponse(VolleyError error) {
+//You can handle error here if you want
+                                                            }
+
+                                                        }) {
+
+                                                    @Override
+                                                    protected Map<String, String> getParams() throws AuthFailureError {
+                                                        Map<String, String> params = new HashMap<>();
+//Adding parameters to request
+                                                        params.put("phone",model.getPhone());
+                                                        params.put("name",model.getName());
+                                                        params.put("pay",cashammountadd.getText().toString());
+                                                        params.put("id",payid);
+//returning parameter
+                                                        return params;
+                                                    }
+                                                };
+                                                RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                                                requestQueue.add(stringRequest);
+
+                                            }
+
+
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+
+
+
+
+                                     }
+                                });
+
 
 
 
@@ -358,5 +480,13 @@ et_searcfh=root.findViewById(R.id.et_search);
     }
 
 
+    private static String getRandomString(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        return sb.toString();
+    }
 
 }
