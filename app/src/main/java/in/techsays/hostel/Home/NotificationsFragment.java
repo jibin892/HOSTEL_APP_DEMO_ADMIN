@@ -119,7 +119,6 @@ public class NotificationsFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-
                         Notif.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
@@ -136,14 +135,8 @@ public class NotificationsFragment extends Fragment {
                                 object.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                                         progress.dismiss();
                                         imagepick.setImageResource(0);
-
- 
-
-
                                     }
 
                                     @Override
