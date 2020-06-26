@@ -1,9 +1,11 @@
 package in.techsays.hostel.Home;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -37,6 +40,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import in.techsays.hostel.About_Us.About;
 import in.techsays.hostel.Contact_Us.Contact;
@@ -71,6 +75,7 @@ public class Home_main extends AppCompatActivity {
             }
         }
         setContentView(R.layout.navigation);
+        EnableRuntimePermission();
          she=getSharedPreferences("log",MODE_PRIVATE);
         SharedPreferences.Editor e=she.edit();
         e.putBoolean("id",true);
@@ -218,6 +223,44 @@ public class Home_main extends AppCompatActivity {
      }
 
 
+    public void EnableRuntimePermission() {
 
+        if (ActivityCompat.shouldShowRequestPermissionRationale(Objects.requireNonNull(this),
+                Manifest.permission.CAMERA)) {
+
+// Toast.makeText(Cpature_image.this,"CAMERA permission allows us to Access CAMERA app", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(Home_main.this, new String[]{
+                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA}, 12);
+
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int RC, String per[], int[] PResult) {
+
+        switch (RC) {
+
+            case 12:
+
+                if (PResult.length > 0 && PResult[0] == PackageManager.PERMISSION_GRANTED) {
+
+// Toast.makeText(Cpature_image.this,"Permission Granted, Now your application can access CAMERA.", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    Toast.makeText(Home_main.this, "Permission Canceled, Now your application cannot access CAMERA.", Toast.LENGTH_LONG).show();
+
+                }
+                break;
+        }}
+
+
+
+
+}
 
 }
