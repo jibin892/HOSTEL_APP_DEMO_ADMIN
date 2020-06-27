@@ -170,42 +170,6 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_medium" />
 
-            <LinearLayout
-                android:id="@+id/locatinhome"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_xmlarge"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:layout_marginTop="@dimen/padding_10"
-                android:onClick="navigationclick"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="0dp" />
-                <ImageButton
-                    android:layout_width="@dimen/spacing_xmlarge"
-                    android:layout_height="@dimen/spacing_xmlarge"
-                    android:background="@android:color/transparent"
-                    android:tint="@color/grey_80"
-                    app:srcCompat="@drawable/ic_location_on_24" />
-
-                <View
-                    android:layout_width="5dp"
-                    android:layout_height="0dp" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Location"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="@color/grey_80"
-                    app:fontFamily="sans-serif-medium" />
-
-            </LinearLayout>
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_medium" />
@@ -255,45 +219,11 @@
                 android:layout_height="@dimen/spacing_medium" />
 
 
-            <LinearLayout
-                android:id="@+id/homeshareapp"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_xmlarge"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:layout_marginTop="@dimen/padding_10"
-                android:onClick="navigationclick"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="0dp" />
-                <ImageButton
-                    android:layout_width="@dimen/spacing_xmlarge"
-                    android:layout_height="@dimen/spacing_xmlarge"
-                    android:background="@android:color/transparent"
-                    android:tint="@color/grey_80"
-                    app:srcCompat="@drawable/ic_share_24" />
-
-                <View
-                    android:layout_width="5dp"
-                    android:layout_height="0dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Share"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="@color/grey_80"
-                    app:fontFamily="sans-serif-medium" />
-
-            </LinearLayout>
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_medium" />
             <LinearLayout
-                android:id="@+id/ratinghome"
+                android:id="@+id/onemountpayment"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xmlarge"
                 android:background="?attr/selectableItemBackground"
@@ -311,7 +241,7 @@
                     android:layout_height="@dimen/spacing_xmlarge"
                     android:background="@android:color/transparent"
                     android:tint="@color/grey_80"
-                    app:srcCompat="@drawable/ic_baseline_star_24" />
+                    app:srcCompat="@drawable/ic_account_balance" />
 
                 <View
                     android:layout_width="5dp"
@@ -320,7 +250,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rating"
+                    android:text="Search Payment"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/grey_80"
                     app:fontFamily="sans-serif-medium" />

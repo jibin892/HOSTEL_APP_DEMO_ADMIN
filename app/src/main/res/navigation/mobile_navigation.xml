@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="in.techsays.hostel.Home.HomeFragment"
+        android:name="in.techsays.hostel.Home.Home_Fragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="in.techsays.hostel.Home.UserdetaisFragment"
+        android:name="in.techsays.hostel.Home.User_detais_Fragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_notice" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="in.techsays.hostel.Home.NotificationsFragment"
+        android:name="in.techsays.hostel.Home.Notification_Fragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_Payment"
-        android:name="in.techsays.hostel.Home.DuedateFragment"
+        android:name="in.techsays.hostel.Home.Due_date_Today_Fragment"
         android:label="payment"
         tools:layout="@layout/fragment_duedate" />
 
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="in.techsays.hostel.Home.TodaypaymentFragment"
+        android:name="in.techsays.hostel.Home.Today_payment_Fragment"
         android:label="profile"
         tools:layout="@layout/fragment_todaypayment" />
 </navigation>

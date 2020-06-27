@@ -2,6 +2,7 @@ package in.techsays.hostel.Home;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +28,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +56,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.common.data.DataHolder;
+import com.google.android.gms.common.internal.Constants;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
@@ -66,6 +71,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -84,9 +90,10 @@ import in.techsays.hostel.Payment.Payment_view_user;
 import in.techsays.hostel.R;
 
 import static android.content.Context.MODE_PRIVATE;
+import static java.lang.String.*;
 
 
-public class UserdetaisFragment extends Fragment {
+public class User_detais_Fragment extends Fragment {
 
     FirebaseListAdapter<Homelist> adapter;
     FirebaseListAdapter<Homelist> adapterroomate;
@@ -125,10 +132,16 @@ public class UserdetaisFragment extends Fragment {
         mShimmerViewContainer.startShimmer();
 et_searcfh=root.findViewById(R.id.et_search);
 
-         sh = getActivity().getSharedPreferences("userdata", MODE_PRIVATE);
-          currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
-        cugrrentDay = String.valueOf(gsdf.format(new Date()));
+
+
+
+
+        sh = getActivity().getSharedPreferences("userdata", MODE_PRIVATE);
+        Date today = new Date();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+           currentDate = format.format(today);        @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
+        cugrrentDay = valueOf(gsdf.format(new Date()));
 
         displayNotifications();
         return root;
@@ -273,9 +286,29 @@ et_searcfh=root.findViewById(R.id.et_search);
 
                                 cashammountadd.setText(model.getRent_Amount());
                                 addcashmanualluroomnumber.setText(model.getRoom_Number());
-                                addcashmanualludate.setText(currentDate);
+                               // addcashmanualludate.setText(currentDate);
 
+                               addcashmanualludate.setOnClickListener(new View.OnClickListener() {
+                                   @Override
+                                   public void onClick(View v) {
+                                       final Calendar c = Calendar.getInstance();
+                                       int mYear = c.get(Calendar.YEAR); // current year
+                                       int mMonth = c.get(Calendar.MONTH); // current month
+                                       int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                                       // date picker dialog
+                                       DatePickerDialog  datePickerDialog = new DatePickerDialog(getActivity(),
+                                               new DatePickerDialog.OnDateSetListener() {
 
+                                                   @Override
+                                                   public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                                       // set day of month , month and year value in the edit text
+                                                       addcashmanualludate.setText(dayOfMonth + "-"+ (monthOfYear + 1) + "-" + year);
+
+                                                   }
+                                               }, mYear, mMonth, mDay);
+                                       datePickerDialog.show();
+                                   }
+                               });
                                 Picasso.get().load(model.getProfile_image()).into(profilefragmentimageaddcash);
 
                                 profilefragmentemailaddcash.setText(model.getEmail());
@@ -295,67 +328,76 @@ et_searcfh=root.findViewById(R.id.et_search);
                                     @Override
                                     public void onClick(View v) {
 
+ if(addcashmanualludate.getText().toString().isEmpty()){
 
-                                    payid=getRandomString(15);
-                                        progress = new ProgressDialog(getActivity());
-                                        progress.setMessage("Please wait...");
-                                        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    addcashmanualludate.setError("Choose Date");
+}
+else {
+    payid = getRandomString(15);
+    progress = new ProgressDialog(getActivity());
+    progress.setMessage("Please wait...");
+    progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 // progress.setIndeterminate(true);
-                                        progress.show();
-                                        DatabaseReference object = FirebaseDatabase.getInstance().getReference();
-                                         DatabaseReference namesRef = object.child("payment").push();
-                                        Map<String, Object> map = new HashMap<>();
-                                        map.put("personName", model.getName());
-                                        map.put("personEmail",model.getEmail());
-                                        map.put("personPhoto",model.getProfile_image());
-                                        map.put("Uid",model.getUid() );
-                                        map.put("Day",cugrrentDay );
-                                        map.put("Payment_Method","Cash Payment");
-                                        map.put("Roomnumber",model.getRoom_Number() );
-                                        map.put("ammount", cashammountadd.getText().toString());
-                                        map.put("discription",model.getName()+"Room Numbr"+model.getRoom_Number()+"Rent Ammount");
-                                        map.put("transaction_id", payid);
-                                        String timeStamp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-                                        map.put("paymenttime", timeStamp);
-                                        map.put("phone_number", model.getPhone());
-                                        String currentTime = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
-                                         map.put("paymentTime", currentTime);
-                                        map.put("paymentdate",currentDate);
-                                        namesRef.updateChildren(map);
-                                        object.child("payment");
-                                        object.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                dialogcashadd.dismiss();
-                                                    progress.dismiss();
-                                                     tostsususs();
-                                             //   smsuser();
+    progress.show();
+
+     String cal = new SimpleDateFormat("E MMM dd HH:mm:ss z uuuu", Locale.getDefault()).format(new Date());
+
+ String mm=String.valueOf(cal);
+    DatabaseReference object = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference namesRef = object.child("payment").push();
+    Map<String, Object> map = new HashMap<>();
+    map.put("personName", model.getName());
+    map.put("personEmail", model.getEmail());
+    map.put("personPhoto", model.getProfile_image());
+    map.put("Uid", model.getUid());
+    map.put("Day", cugrrentDay);
+     map.put("Mounth",mm );
+     map.put("Date", addcashmanualludate.getText().toString());
+    map.put("Payment_Method", "Cash Payment");
+    map.put("Roomnumber", model.getRoom_Number());
+    map.put("ammount", cashammountadd.getText().toString());
+    map.put("discription", model.getName() + "Room Numbr" + model.getRoom_Number() + "Rent Ammount");
+    map.put("transaction_id", payid);
+    String timeStamp = valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+    map.put("paymenttime", timeStamp);
+    map.put("phone_number", model.getPhone());
+    String currentTime = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
+    map.put("paymentTime", currentTime);
+    map.put("paymentdate", currentDate);
+    namesRef.updateChildren(map);
+    object.child("payment");
+    object.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            dialogcashadd.dismiss();
+            progress.dismiss();
+            tostsususs();
+            //   smsuser();
 
 
+        }
 
-                                            }
+        private void tostsususs() {
 
-                                            private void tostsususs() {
+            Toast toast = new Toast(getActivity());
+            toast.setDuration(Toast.LENGTH_LONG);
 
-                                                Toast toast = new Toast(getActivity());
-                                                toast.setDuration(Toast.LENGTH_LONG);
-
-                                                //inflate view
-                                                View custom_view = getLayoutInflater().inflate(R.layout.snakbar_susseus, null);
-                                                ((TextView) custom_view.findViewById(R.id.message)).setText("Success!");
-                                                ((ImageView) custom_view.findViewById(R.id.icon)).setImageResource(R.drawable.checkmark);
-                                                ((CardView) custom_view.findViewById(R.id.parent_view)).setCardBackgroundColor(getResources().getColor(R.color.green_500));
-                                                toast.setView(custom_view);
-                                                toast.show();
-                                            }
+            //inflate view
+            View custom_view = getLayoutInflater().inflate(R.layout.snakbar_susseus, null);
+            ((TextView) custom_view.findViewById(R.id.message)).setText("Success!");
+            ((ImageView) custom_view.findViewById(R.id.icon)).setImageResource(R.drawable.checkmark);
+            ((CardView) custom_view.findViewById(R.id.parent_view)).setCardBackgroundColor(getResources().getColor(R.color.green_500));
+            toast.setView(custom_view);
+            toast.show();
+        }
 
 
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
 
-                                            }
-                                        });
-
+        }
+    });
+}
                                     }
                                     private void smsuser() {
 
@@ -766,6 +808,5 @@ et_searcfh=root.findViewById(R.id.et_search);
             sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
         return sb.toString();
     }
-
 
 }

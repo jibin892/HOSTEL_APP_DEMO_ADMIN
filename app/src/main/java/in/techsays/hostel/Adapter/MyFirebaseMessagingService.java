@@ -1,4 +1,4 @@
-package in.techsays.hostel;
+package in.techsays.hostel.Adapter;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,6 +21,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
+
+import in.techsays.hostel.MainActivity;
+import in.techsays.hostel.R;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MyFirebaseMessagingService extends FirebaseMessagingService {

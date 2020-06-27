@@ -36,6 +36,7 @@ import androidx.fragment.app.Fragment;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,12 +57,13 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 import in.techsays.hostel.Adapter.Homelist;
 import in.techsays.hostel.Login_and_Registration.User;
+import in.techsays.hostel.Payment.Payment_view_user;
 import in.techsays.hostel.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class DuedateFragment extends Fragment  {
+public class Due_date_Today_Fragment extends Fragment  {
     FirebaseListAdapter<Homelist> adapter;
     ListView notificationlist;
     Query reference;
@@ -75,9 +77,7 @@ public class DuedateFragment extends Fragment  {
     public static final int DIALOG_QUEST_CODE = 300;
     SharedPreferences roomnumber,sh;
     EditText et_searcfh;
-    ImageView   profileadharback,profileadharfrend  ;
-    TextView profilename,profileemail,profilephonenumber,profilehomephonenumber,profileroomnumber,profiledate,profileaddress,
-            profilesadharrcarennumber,profilevillage,profiledistrict,profilesate,profilepatcode;
+     TextView profilename,profileemail,profilephonenumber,profilehomephonenumber,profileroomnumber,profiledate ;
     String cugrrentDay;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -108,7 +108,7 @@ public class DuedateFragment extends Fragment  {
                 final ImageView adminusrimg = v.findViewById(R.id.adminusrimg1);
                 final TextView adminusrroomnumber = (TextView) v.findViewById(R.id.adminusrroomnumber1);
                 final TextView adminusremail = (TextView) v.findViewById(R.id.adminusremail1);
-                final ImageButton morehomelist = (ImageButton) v.findViewById(R.id.morehomelist1);
+                final FloatingActionButton morehomelist = (FloatingActionButton) v.findViewById(R.id.morehomelist1);
 
 
 
@@ -135,21 +135,13 @@ public class DuedateFragment extends Fragment  {
                         homeemailview=(TextView) view.findViewById(R.id.botamshetthometemail1);
                         Picasso.get().load(model.getProfile_image()).into(homeimageview);
 
-                        profilephonenumber=view.findViewById(R.id.profilephonenumber11);
-                        profilehomephonenumber=view.findViewById(R.id.profilehomephonenumber11);
+                         profilehomephonenumber=view.findViewById(R.id.profilehomephonenumber11);
                         profileroomnumber=view.findViewById(R.id.profileroomnumber11);
                         profiledate=view.findViewById(R.id.profiledate11);
-                        profileaddress=view.findViewById(R.id.profileaddress11);
+
+                        profilephonenumber=view.findViewById(R.id.profilephonenumber11);
 
 
-                        profileadharback=view.findViewById(R.id.profileadharback11);
-                        profileadharfrend=view.findViewById(R.id.profileadharfrend11);
-
-                        profilesadharrcarennumber=view.findViewById(R.id.profilesadharrcarennumber11);
-                        profilevillage=view.findViewById(R.id.profilevillage11);
-                        profiledistrict=view.findViewById(R.id.profiledistrict11);
-                        profilesate=view.findViewById(R.id.profilestate11);
-                        profilepatcode=view.findViewById(R.id.profilepostcode11);
                         profilename=view.findViewById(R.id.profilename11);
                         profileemail=view.findViewById(R.id.profileemail11);
 
@@ -157,22 +149,32 @@ public class DuedateFragment extends Fragment  {
 
 
 
-                        Picasso.get().load(model.getaAhaarcard_backside_image()).into(profileadharback);
-                        Picasso.get().load(model.getAdhaarcard_frentside_image()).into(profileadharfrend);
+
                         profilephonenumber.setText(model.getPhone());
                         profilehomephonenumber.setText(model.getHome_phome());
                         profileroomnumber.setText(model.getRoom_Number());
                         profiledate.setText(model.getDate());
-                        profileaddress.setText(model.getAddress());
-                        profilesadharrcarennumber.setText(model.getAdhaar_cared_number());
-                        profilevillage.setText(model.getVillage());
-                        profiledistrict.setText(model.getDistrict());
-                        profilesate.setText(model.getState());
-                        profilepatcode.setText(model.getPostel_code());
+
                         profilename.setText(model.getName());
                         profileemail.setText(model.getEmail());
                         homenameview.setText(model.getName());
                         homeemailview.setText(model.getEmail());
+
+
+
+                        (view.findViewById(R.id.viewdueammount)).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+
+                                Intent i = new Intent(getActivity(), Payment_view_user.class);
+                                i.putExtra("uid",model.getUid());
+                                startActivity(i);
+
+                            }
+                        });
+
+
 
                         (view.findViewById(R.id.callnoehome11)).setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -193,23 +195,27 @@ public class DuedateFragment extends Fragment  {
                                 startActivity(callIntent);
                             }
                         });
-
-                        (view.findViewById(R.id.morelisshare11)).setOnClickListener(new View.OnClickListener() {
+                        (view.findViewById(R.id.callhomephonumerd)).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Bitmap imgBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.logo);
-                                String imgBitmapPath = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),imgBitmap, String.valueOf(R.string.app_name),null);
-                                Uri imgBitmapUri = Uri.parse(imgBitmapPath);
-                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                                shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                shareIntent.putExtra(Intent.EXTRA_STREAM,imgBitmapUri);
-                                shareIntent.setType("*/*");
-                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                shareIntent.putExtra(Intent.EXTRA_TEXT, "Name:"+"\n" + model.getName()+"\n"+"Email:"+"\n" + model.getEmail()+"\n"+"Phone Number:"+"\n" + model.getPhone()+"\n"+"House Phone Number:"+"\n" + model.getHome_phome()+"\n"+"Adhaar Cared Number:"+"\n" + model.getAdhaar_cared_number()+"\n"+"Address:"+"\n" + model.getAddress());
-                                shareIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
-                                startActivity(Intent.createChooser(shareIntent, "Share this"));
+                                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent.setData(Uri.parse("tel:" + model.getHome_phome()));
+                                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                    // TODO: Consider calling
+                                    //    ActivityCompat#requestPermissions
+                                    // here to request the missing permissions, and then overriding
+                                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                    //                                          int[] grantResults)
+                                    // to handle the case where the user grants the permission. See the documentation
+                                    // for ActivityCompat#requestPermissions for more details.
+                                    return;
+                                }
+                                startActivity(callIntent);
                             }
                         });
+
+
                         mBottomSheetDialog = new BottomSheetDialog(getActivity());
                         mBottomSheetDialog.setContentView(view);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

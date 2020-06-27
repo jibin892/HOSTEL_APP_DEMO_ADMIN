@@ -4,11 +4,11 @@ package in.techsays.hostel.Adapter;
 
 public class Payment_Adapter {
 
-    private String Uid,personEmail,Day,Roomnumber,ammount,discription,paymentTime,paymentdate,personName,personPhoto,phone_number,transaction_id;
+    private String Uid,personEmail,Day,Roomnumber,ammount,discription,paymentTime,paymentdate,personName,personPhoto,phone_number,transaction_id,Payment_Method;
 
 
     public Payment_Adapter(String Uid, String personEmail,String Day,String Roomnumber,String ammount,String discription,String paymentTime,String paymentdate,
-                            String personName,String personPhoto,String phone_number,String transaction_id) {
+                            String personName,String personPhoto,String phone_number,String transaction_id,String Payment_Method) {
         this.Uid = Uid;
         this.personEmail = personEmail;
         this.Day = Day;
@@ -23,6 +23,7 @@ public class Payment_Adapter {
 
         this.phone_number = phone_number;
         this.transaction_id = transaction_id;
+        this.Payment_Method = Payment_Method;
 
 
 
@@ -102,7 +103,7 @@ public class Payment_Adapter {
 
 
 
- 
+
 
     public String getPersonName() {
         return personName;
@@ -142,7 +143,13 @@ public class Payment_Adapter {
 
 
 
+    public String getPayment_Method() {
+        return Payment_Method;
+    }
 
+    public void setPayment_Method(String Payment_Method) {
+        this.Payment_Method = Payment_Method;
+    }
 
 
 }

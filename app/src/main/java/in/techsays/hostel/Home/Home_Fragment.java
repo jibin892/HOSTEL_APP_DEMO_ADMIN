@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,6 +42,7 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -53,11 +55,13 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import in.techsays.hostel.Adapter.Homelist;
+import in.techsays.hostel.Adapter.Payment_Adapter;
 import in.techsays.hostel.Approve_details.Approve;
+import in.techsays.hostel.Login_and_Registration.User;
 import in.techsays.hostel.R;
 
 
-public class HomeFragment extends Fragment {
+public class Home_Fragment extends Fragment {
     FirebaseListAdapter<Homelist> adapter;
     ListView notificationlist;
     Query reference;
@@ -79,7 +83,7 @@ public class HomeFragment extends Fragment {
         view=root.findViewById(R.id.imageid);
         mShimmerViewContainer = root.findViewById(R.id.shimmer_view_container);
         mShimmerViewContainer.startShimmer();
-
+userdataload();
         displayNotifications();
         return root;
     }
@@ -95,8 +99,8 @@ public class HomeFragment extends Fragment {
                 final TextView homelistph = (TextView) v.findViewById(R.id.homelistph);
                 final FloatingActionButton fabhomeaddlist = (FloatingActionButton) v.findViewById(R.id.fabhomeaddlist);
 
-                final ImageView personimagehomelist = v.findViewById(R.id.personimagehomelist);
 
+                final ImageView personimagehomelist = v.findViewById(R.id.personimagehomelist);
 
 
                 homelisemail.setText(model.getEmail());
@@ -238,91 +242,33 @@ public class HomeFragment extends Fragment {
 
 
 
-//                 String s=String.valueOf(model.getTime_stamp());
-//                s=s.substring(1);
-//                Calendar cal = Calendar.getInstance();
-//                TimeZone tz = cal.getTimeZone();//get your local time zone.
-//                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
-//                sdf.setTimeZone(tz);//set time zone.
-//                String localTime = sdf.format(new Date(Long.parseLong(model.getTime_stamp())* 1000));
-//                Date date = new Date();
-//                try {
-//                    date = sdf.parse(localTime);//get local date
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                if(date == null) {
-//                    //  return null;
-//                }
-//
-//                long time = date.getTime();
-//
-//                Date curDate = currentDate();
-//                long now = curDate.getTime();
-//                if (time > now || time <= 0) {
-//                    //  return null;
-//                }
-//
-//                float timeDIM = getTimeDistanceInMinutes(time);
-//
-//                String timeAgo = null;
-//
-//                if (timeDIM == 0) {
-//                    timeAgo = "just now";
-//                } else if (timeDIM == 1) {
-//                    //  return  "1 minute";
-//                    timeAgo="1 minute ago";
-//                } else if (timeDIM >= 2 && timeDIM <= 44) {
-//                    timeAgo = (Math.round(timeDIM)) + " minutes ago";
-//                } else if (timeDIM >= 45 && timeDIM <= 89) {
-//                    timeAgo = " 1 hour ago";
-//                } else if (timeDIM >= 90 && timeDIM <= 1439) {
-//                    timeAgo =   (Math.round(timeDIM / 60)) + " hours ago";
-//                } else if (timeDIM >= 1440 && timeDIM <= 2519) {
-//                    timeAgo = "1 day ago";
-//                } else if (timeDIM >= 2520 && timeDIM <= 43199) {
-//                    timeAgo = (Math.round(timeDIM / 1440)) + " days";
-//                } else if (timeDIM >= 43200 && timeDIM <= 86399) {
-//                    timeAgo = "about a month ago";
-//                } else if (timeDIM >= 86400 && timeDIM <= 525599) {
-//                    timeAgo = (Math.round(timeDIM / 43200)) + " months";
-//                } else if (timeDIM >= 525600 && timeDIM <= 655199) {
-//                    timeAgo = "about a year ago";
-//                } else if (timeDIM >= 655200 && timeDIM <= 914399) {
-//                    timeAgo = "over a year ago";
-//                } else if (timeDIM >= 914400 && timeDIM <= 1051199) {
-//                    timeAgo = "almost 2 years ago";
-//                } else {
-//                    timeAgo = "about " + (Math.round(timeDIM / 525600)) + " years";
-//                }
-//                // return timeAgo + " ago";
-//                uploadedtime.setText(timeAgo);
-
-
-
-
-
-
 
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        if(dataSnapshot.exists()){
+                        if(!dataSnapshot.exists()){
                             mShimmerViewContainer.stopShimmer();
                             mShimmerViewContainer.setVisibility(View.INVISIBLE);
 
                         }
 
 
-else {
-                            final Dialog dialog = new Dialog(getActivity());
-                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
-                            dialog.setContentView(R.layout.no_new_addmisions);
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                            dialog.setCancelable(false);
-                            dialog.show();
+                        else    {
+
+
+
+                                    mShimmerViewContainer.stopShimmer();
+                                    mShimmerViewContainer.setVisibility(View.INVISIBLE);
+                                    Toast.makeText(mActivity, "okkkk", Toast.LENGTH_SHORT).show();
+                                    final Dialog dialog = new Dialog(getActivity());
+                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+                                    dialog.setContentView(R.layout.no_new_addmisions);
+                                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                                    dialog.setCancelable(true);
+                                    dialog.show();
+
+
                         }
 
 
@@ -335,7 +281,10 @@ else {
                     }
                 });
 
-                //  }
+
+
+
+            //  }
 
 
 
@@ -354,6 +303,44 @@ else {
 
 
     }
+    private void userdataload() {
 
 
-}
+
+        DatabaseReference mUserDatabase = FirebaseDatabase.getInstance().getReference().child("registration");
+        mUserDatabase.keepSynced(true);
+
+        mUserDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    User userr = dataSnapshot.getValue(User.class);
+
+                    String   email=userr.getEmail().toString();
+
+
+
+                }
+                else {
+                    mShimmerViewContainer.stopShimmer();
+                    mShimmerViewContainer.setVisibility(View.INVISIBLE);
+                     final Dialog dialog = new Dialog(getActivity());
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+                    dialog.setContentView(R.layout.no_new_addmisions);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.setCancelable(true);
+                    dialog.show();
+                    Toast.makeText(getActivity(), "dggsdfhtrgh", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }}

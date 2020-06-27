@@ -1,91 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RippleStyleBlack"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/techListTouch"
-    android:background="@android:color/white">
-
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/linearLayout21"
+        android:id="@+id/lyt_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:weightSum="2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal">
 
-        <LinearLayout
+
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.3"
-            android:orientation="horizontal">
+            android:layout_marginBottom="@dimen/spacing_middle"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_middle"
+            android:visibility="visible"
+            app:cardCornerRadius="13dp"
+            app:cardElevation="2dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/codehead1ing"
-                android:layout_width="80dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/padding_10"
-                 android:background="@drawable/cercilegray" />
-
-            <TextView
-                android:id="@+id/codedi1scription"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
-                android:layout_marginStart="@dimen/_50sdp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/circularbordersolid1"
-                android:textSize="12sp" />
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <View
+                    android:id="@+id/adminusrimg"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="@dimen/spacing_xlarge"
+                    android:background="@drawable/cercilegray"
+
+                    />
+
+                <TextView
+                    android:id="@+id/adminusrname"
+                    android:layout_width="127dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:background="@drawable/circularbordersolid1"
+                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                    android:textColor="@color/grey_90" />
+
+                <TextView
+                    android:id="@+id/adminusremail"
+                    android:layout_width="104dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="@dimen/padding_10"
+                    android:background="@drawable/circularbordersolid1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/grey_40" />
+
+
+                <TextView
+                    android:id="@+id/adminusrroomnumber"
+                    android:layout_width="80dp"
+                    android:layout_height="17dp"
+                    android:layout_marginTop="@dimen/padding_10"
+                    android:background="@drawable/circularbordersolid1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/grey_40" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/callpersondirectuserlist"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@drawable/circularbordersolid1"
+                        android:tint="@color/green_A700"
+                         />
+
+                    <View
+                        android:layout_width="@dimen/spacing_xlarge"
+                        android:layout_height="0dp" />
+
+                    <View
+                        android:id="@+id/callhomepersondirectuserlist"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@drawable/circularbordersolid1"
+                        android:tint="@color/red_A700"
+                        />
+
+                    <View
+                        android:layout_width="@dimen/spacing_xlarge"
+                        android:layout_height="0dp" />
+
+                    <View
+                        android:id="@+id/userlistshoowrommnumber"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@drawable/circularbordersolid1"
+                        android:tint="@color/orange_A400"
+                       />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/spacing_middle"
+                    android:background="@color/grey_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/padding_10"
+                        android:layout_marginEnd="@dimen/padding_10"
+                        android:background="@drawable/circularbordersolid1"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_medium">
+
+                        <View
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                             android:background="@drawable/circularbordersolid1"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey_5" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/padding_10"
+                        android:layout_marginBottom="@dimen/padding_10"
+                        android:background="@drawable/circularbordersolid1"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_medium">
+
+                        <ImageButton
+                            android:id="@+id/morehomelist"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</com.balysv.materialripple.MaterialRippleLayout>

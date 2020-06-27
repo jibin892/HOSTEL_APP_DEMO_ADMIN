@@ -119,6 +119,25 @@ public class Payment_View_Admin extends AppCompatActivity {
                 final TextView paymentdate = (TextView) v.findViewById(R.id.paymentdateadminview);
                 final TextView roomnumberpayment = (TextView) v.findViewById(R.id.roomnumberpaymentadminview);
 
+                final TextView todaypaymetmethedtext = (TextView) v.findViewById(R.id.adminviespaymenton);
+
+                final LinearLayout todaypaymentmethod = (LinearLayout) v.findViewById(R.id.adminviewpaymetsl);
+
+
+
+
+                if (model.getPayment_Method().contains("Cash Payment")){
+
+                    todaypaymentmethod.setBackgroundColor(getResources().getColor(R.color.red_A700));
+
+                    todaypaymetmethedtext.setText(model.getPayment_Method());
+
+                }
+                else {
+                    todaypaymentmethod.setBackgroundColor(getResources().getColor(R.color.green_A700));
+                    todaypaymetmethedtext.setText(model.getPayment_Method());
+
+                }
 
                 if(model.getAmmount()==null)
                 {
@@ -214,9 +233,9 @@ public class Payment_View_Admin extends AppCompatActivity {
 
     private void loadtodaypayment() {
 
-        view = getLayoutInflater().inflate(R.layout.botamsheet_todaymmount, null);
-        todayfuulammount=view.findViewById(R.id.todayfuulammount);
-        todayfuulammount.setText(String.valueOf(amounttotal));
+        view = getLayoutInflater().inflate(R.layout.botamsheet_total_amount, null);
+        todayfuulammount=view.findViewById(R.id.todayfuulammount1);
+        todayfuulammount.setText("Rs:"+String.valueOf(amounttotal));
 
         (view.findViewById(R.id.close123)).setOnClickListener(new View.OnClickListener() {
             @Override

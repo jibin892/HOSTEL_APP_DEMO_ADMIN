@@ -1,7 +1,6 @@
 package in.techsays.hostel.Home;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,30 +24,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
- import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import in.techsays.hostel.About_Us.About;
-import in.techsays.hostel.Adapter.Payment_Adapter;
 import in.techsays.hostel.Contact_Us.Contact;
-import in.techsays.hostel.Location.Location_Home;
 import in.techsays.hostel.Login_and_Registration.Login;
-import in.techsays.hostel.Login_and_Registration.User;
+import in.techsays.hostel.Payment.One_mount_payments;
 import in.techsays.hostel.Payment.Payment_View_Admin;
 import in.techsays.hostel.R;
 import in.techsays.hostel.Settings.Settings_home;
@@ -195,11 +182,7 @@ public class Home_main extends AppCompatActivity {
             Toast.makeText(this, "11", Toast.LENGTH_SHORT).show();
 
         }
-        if (id == R.id.locatinhome) {
 
-            Intent i = new Intent(Home_main.this, Location_Home.class);
-            startActivity(i);
-        }
         if (id == R.id.contacthome) {
 
             Intent i1 = new Intent(Home_main.this, Contact.class);
@@ -209,6 +192,13 @@ public class Home_main extends AppCompatActivity {
 
             Intent i2 = new Intent(Home_main.this, Settings_home.class);
             startActivity(i2);
+        }
+
+
+        if (id == R.id.onemountpayment) {
+
+            Intent ida = new Intent(Home_main.this, One_mount_payments.class);
+            startActivity(ida);
         }
 
 

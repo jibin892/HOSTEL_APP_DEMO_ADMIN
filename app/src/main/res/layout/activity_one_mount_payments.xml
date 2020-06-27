@@ -11,7 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+    <LinearLayout
+        android:id="@+id/lyt_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <androidx.cardview.widget.CardView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
@@ -37,11 +41,11 @@
                     app:srcCompat="@drawable/ic_baseline_search_24" />
 
                 <EditText
-                    android:id="@+id/et_search"
+                    android:id="@+id/et_searchsatrtdate"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
+                     android:background="@android:color/transparent"
                     android:hint="Type outlet name"
                     android:imeOptions="actionSearch"
                     android:maxLines="1"
@@ -55,20 +59,103 @@
 
                 </EditText>
 
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+             android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:layout_margin="@dimen/spacing_mlarge"
+            android:clipToPadding="false"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_corner5"
+                android:orientation="horizontal">
+
                 <ImageView
-                    android:id="@+id/onemounthpayment"
                     android:layout_width="@dimen/spacing_xmlarge"
                     android:layout_height="@dimen/spacing_xmlarge"
                     android:padding="@dimen/spacing_middle"
-                    android:background="@drawable/btn_corner5"
                     android:tint="@color/grey_80"
-                    app:srcCompat="@drawable/ic_account_balance" />
+                    app:srcCompat="@drawable/ic_baseline_search_24" />
+
+                <EditText
+                    android:id="@+id/et_searchend"
+                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                     android:background="@android:color/transparent"
+                    android:hint="Type outlet name"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/grey_80">
+
+                    <requestFocus />
+
+
+                </EditText>
 
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:padding="@dimen/padding_10"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/spacing_large"
+            android:paddingRight="@dimen/spacing_large">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="81dp"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
+                <ImageButton
+                    android:id="@+id/searchdate"
+                     android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:tint="@color/blue_A700"
+                    app:srcCompat="@drawable/ic_baseline_search_24" />
+
+                <View
+                    android:layout_width="@dimen/spacing_xlarge"
+                    android:layout_height="0dp" />
+
+                <ImageButton
+                    android:id="@+id/onemounthpayment"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:tint="@color/green_A700"
+                    app:srcCompat="@drawable/ic_account_balance" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

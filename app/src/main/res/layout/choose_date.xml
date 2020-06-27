@@ -120,21 +120,22 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingRight="@dimen/spacing_middle"
-                                android:text="Amount"
+                                android:text="Start Date"
                                 android:textColor="@android:color/black" />
-                            <EditText
-                                android:id="@+id/cashammountadd"
+                            <TextView
+                                android:id="@+id/startdate"
                                 style="@style/EditText.Flat.Grey"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/padding_10"
                                 android:layout_gravity="start"
                                 android:gravity="center"
+                                android:focusable="false"
                                 android:inputType="number"
                                 android:background="@drawable/edit_text_round_bg_outline"
                                 android:minHeight="@dimen/spacing_xmlarge"
                                 android:paddingRight="@dimen/spacing_middle"
-                                android:text="4000"
+                                android:hint="DATE"
                                 android:textColor="@android:color/black" />
 
 
@@ -144,35 +145,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/padding_10"
                                 android:paddingRight="@dimen/spacing_middle"
-                                android:text="Room Number"
+                                android:text="End Date"
                                 android:textColor="@android:color/black" />
                             <TextView
-                                android:id="@+id/addcashmanualluroomnumber"
-                                style="@style/EditText.Flat.Grey"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/padding_10"
-                                android:background="@drawable/edit_text_round_bg_outline"
-                                android:editable="false"
-                                android:layout_gravity="start"
-                                android:gravity="center"
-                                android:focusable="false"
-                                android:minHeight="@dimen/spacing_xmlarge"
-                                android:paddingLeft="@dimen/spacing_middle"
-                                android:paddingRight="@dimen/spacing_middle"
-                                android:text="United State"
-                                android:textColor="@android:color/black" />
-
-                            <TextView
-                                style="@style/EditText.Flat.Grey"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/padding_10"
-                                android:paddingRight="@dimen/spacing_middle"
-                                android:text="Date"
-                                android:textColor="@android:color/black" />
-                            <TextView
-                                android:id="@+id/addcashmanualludate"
+                                android:id="@+id/enddate"
                                 style="@style/EditText.Flat.Grey"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -195,6 +171,7 @@
                             android:layout_height="match_parent"
                             android:layout_below="@id/toolbar"
                             android:layout_weight="1"
+                            android:focusable="false"
                             android:clipToPadding="false"
                             android:padding="@dimen/spacing_mlarge"
                             android:scrollbars="none"
@@ -274,8 +251,8 @@
 
 
         <TextView
-            android:id="@+id/addcashsudmit"
-            android:text="ADD CASH"
+            android:id="@+id/datesearch"
+            android:text="SEARCH"
             android:textColor="@color/wite"
             android:layout_gravity="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"

@@ -19,7 +19,7 @@
         tools:ignore="MissingConstraints">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/paymentimage1"
+            android:id="@+id/paymentimageadminviewonemounth"
             android:layout_width="93dp"
             android:layout_height="67dp"
             android:layout_gravity="center"
@@ -27,7 +27,7 @@
 
 
         <TextView
-            android:id="@+id/paymentname1"
+            android:id="@+id/paymentnameadminviewonemounth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_middle"
@@ -38,7 +38,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/paymentemail1"
+            android:id="@+id/paymentemailadminviewonemounth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_middle"
@@ -93,7 +93,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/paymentdate1"
+                    android:id="@+id/paymentdateadminviewonemounth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -108,7 +108,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/paymenttime1"
+                    android:id="@+id/paymenttimeadminviewonemounth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -144,7 +144,7 @@
                     android:textColor="@color/grey_40" />
 
                 <TextView
-                    android:id="@+id/paymenttransactionid1"
+                    android:id="@+id/paymenttransactionidadminviewonemounth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -163,7 +163,7 @@
                     android:textColor="@color/grey_40" />
 
                 <TextView
-                    android:id="@+id/roomnumberpayment1"
+                    android:id="@+id/roomnumberpaymentadminviewonemounth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -206,7 +206,7 @@
                     android:textColor="@color/grey_40" />
 
                 <TextView
-                    android:id="@+id/paymentammount1"
+                    android:id="@+id/paymentammountadminviewonemounth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -237,7 +237,7 @@
             app:cardElevation="0dp">
 
             <LinearLayout
-                android:id="@+id/paymetviewlinearla"
+                android:id="@+id/adminviewpaymetslonemounth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -258,8 +258,8 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/paymenttypeviewad"
-                         android:layout_width="wrap_content"
+                        android:id="@+id/adminviespaymentononemounth"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:layout_gravity="center"
