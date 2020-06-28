@@ -175,7 +175,7 @@ public class Today_payment_Fragment extends Fragment {
                                 sum=sum+am;
                                 amounttotal=String.valueOf(sum);
 
- 
+
 
                             }
                         }
