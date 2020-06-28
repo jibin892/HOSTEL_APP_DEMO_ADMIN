@@ -65,7 +65,7 @@ public class Home_Fragment extends Fragment {
     FirebaseListAdapter<Homelist> adapter;
     ListView notificationlist;
     Query reference;
-    LinearLayout view;
+    LinearLayout view,homnodatafound;
     final int RequestPermissionCode=1;
     public static final int DIALOG_QUEST_CODE = 300;
      ProgressBar progress_determinate;
@@ -81,6 +81,8 @@ public class Home_Fragment extends Fragment {
 
         notificationlist = root.findViewById(R.id.notificationlist);
         view=root.findViewById(R.id.imageid);
+        homnodatafound=root.findViewById(R.id.homnodatafound);
+        homnodatafound.setVisibility(View.GONE);
         mShimmerViewContainer = root.findViewById(R.id.shimmer_view_container);
         mShimmerViewContainer.startShimmer();
 userdataload();
@@ -260,13 +262,7 @@ userdataload();
 
                                     mShimmerViewContainer.stopShimmer();
                                     mShimmerViewContainer.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(mActivity, "okkkk", Toast.LENGTH_SHORT).show();
-                                    final Dialog dialog = new Dialog(getActivity());
-                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
-                                    dialog.setContentView(R.layout.no_new_addmisions);
-                                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                                    dialog.setCancelable(true);
-                                    dialog.show();
+
 
 
                         }
@@ -317,6 +313,7 @@ userdataload();
                     User userr = dataSnapshot.getValue(User.class);
 
                     String   email=userr.getEmail().toString();
+                    homnodatafound.setVisibility(View.GONE);
 
 
 
@@ -324,14 +321,9 @@ userdataload();
                 else {
                     mShimmerViewContainer.stopShimmer();
                     mShimmerViewContainer.setVisibility(View.INVISIBLE);
-                     final Dialog dialog = new Dialog(getActivity());
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
-                    dialog.setContentView(R.layout.no_new_addmisions);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    dialog.setCancelable(true);
-                    dialog.show();
-                    Toast.makeText(getActivity(), "dggsdfhtrgh", Toast.LENGTH_SHORT).show();
-                }
+                    homnodatafound.setVisibility(View.VISIBLE);
+
+                 }
             }
 
 

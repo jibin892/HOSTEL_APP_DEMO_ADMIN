@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,22 +61,23 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class Today_payment_Fragment extends Fragment {
+
     FirebaseListAdapter<Payment_Adapter> adapter;
     ListView notificationlist;
     Query reference;
-     private BottomSheetDialog mBottomSheetDialog;
-     private ShimmerFrameLayout mShimmerViewContainer;
-     final int RequestPermissionCode=1;
+    private BottomSheetDialog mBottomSheetDialog;
+    private ShimmerFrameLayout mShimmerViewContainer;
+    final int RequestPermissionCode=1;
     ArrayAdapter<String> arrayAdapter;
     public static final int DIALOG_QUEST_CODE = 300;
     SharedPreferences roomnumber,sh;
     EditText et_searcfh;
     TextView todayfuulammount;
-   // int sum ;
+    // int sum ;
     View view;
     String amounttotal;
-    ImageView todayscolluction;
-String cugrrentDay;
+    ImageButton todayscolluction;
+    String cugrrentDay;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -115,7 +115,7 @@ String cugrrentDay;
                 R.layout.payment_list,
                 reference = FirebaseDatabase.getInstance().getReference().child("payment").orderByChild("Day").equalTo(cugrrentDay)) {
 
-             @Override
+            @Override
             protected void populateView(View v, final Payment_Adapter model, int position) {
 
                 final TextView paymentname = (TextView) v.findViewById(R.id.paymentname);
@@ -125,42 +125,16 @@ String cugrrentDay;
                 final TextView paymentammount = (TextView) v.findViewById(R.id.paymentammount);
                 final TextView paymenttime = (TextView) v.findViewById(R.id.paymenttime);
                 final TextView paymentdate = (TextView) v.findViewById(R.id.paymentdate);
-                 final TextView roomnumberpayment = (TextView) v.findViewById(R.id.roomnumberpayment);
-                 final TextView todaypaymetmethedtext = (TextView) v.findViewById(R.id.todaypaymetmethedtext);
-
-                 final LinearLayout todaypaymentmethod = (LinearLayout) v.findViewById(R.id.todaypaymentmethod);
+                final TextView roomnumberpayment = (TextView) v.findViewById(R.id.roomnumberpayment);
 
 
-
-
-                 if (model.getPayment_Method().contains("Cash Payment")){
-
-                     todaypaymentmethod.setBackgroundColor(getResources().getColor(R.color.red_A700));
-
-                     todaypaymetmethedtext.setText(model.getPayment_Method());
-
-                 }
-                 else {
-                     todaypaymentmethod.setBackgroundColor(getResources().getColor(R.color.green_A700));
-                     todaypaymetmethedtext.setText(model.getPayment_Method());
-
-                 }
-
-
-                 if(model.getAmmount()==null)
-{
-    todayscolluction.setVisibility(View.INVISIBLE);
-}
-else {
-    todayscolluction.setVisibility(View.VISIBLE);
-
-
-}
-
-
-
-
-
+                if(model.getAmmount()==null)
+                {
+                    todayscolluction.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    todayscolluction.setVisibility(View.VISIBLE);
+                }
 
                 paymentname.setText(model.getPersonName());
                 Picasso.get().load(model.getPersonPhoto()).into(paymentimage);
@@ -169,7 +143,7 @@ else {
                 paymentammount.setText(model.getAmmount());
                 paymenttime.setText(model.getPaymentTime());
                 paymentdate.setText(model.getPaymentdate());
-                roomnumberpayment.setText(model.getRoomnumber());
+                // roomnumberpayment.setText(model.getRoomnumber());
 
 
 
@@ -190,20 +164,21 @@ else {
 
 
 
-                                int  sum=0;
+                            int  sum=0;
 
-                                for (DataSnapshot ds:dataSnapshot.getChildren()) {
-                                    Payment_Adapter p=ds.getValue(Payment_Adapter.class);
-
-
-                                        int am=Integer.parseInt(p.getAmmount());
-                                        sum=sum+am;
-                                        amounttotal=String.valueOf(sum);
+                            for (DataSnapshot ds:dataSnapshot.getChildren()
+                            ) {
+                                Payment_Adapter p=ds.getValue(Payment_Adapter.class);
 
 
+                                int am=Integer.parseInt(p.getAmmount());
+                                sum=sum+am;
+                                amounttotal=String.valueOf(sum);
 
-                                }
+ 
+
                             }
+                        }
 
 
                         else {
@@ -249,7 +224,7 @@ else {
 
         view = getLayoutInflater().inflate(R.layout.botamsheet_todaymmount, null);
         todayfuulammount=view.findViewById(R.id.todayfuulammount);
-        todayfuulammount.setText("Rs:"+String.valueOf(amounttotal));
+        todayfuulammount.setText(String.valueOf(amounttotal));
 
         (view.findViewById(R.id.close123)).setOnClickListener(new View.OnClickListener() {
             @Override

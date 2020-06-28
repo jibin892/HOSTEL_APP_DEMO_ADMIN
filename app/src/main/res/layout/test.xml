@@ -56,7 +56,7 @@
                 </EditText>
 
                 <ImageView
-                    android:id="@+id/onemounthpayment"
+                    android:id="@+id/todayscolluction"
                     android:layout_width="@dimen/spacing_xmlarge"
                     android:layout_height="@dimen/spacing_xmlarge"
                     android:padding="@dimen/spacing_middle"
@@ -76,7 +76,7 @@
 
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_view_onemountpayment"
+                android:id="@+id/shimmer_view_containerpayment"
                 android:layout_width="match_parent"
                 android:background="@color/white"
                 android:layout_height="match_parent"
@@ -111,7 +111,7 @@
 
             </com.facebook.shimmer.ShimmerFrameLayout>
             <ListView
-                android:id="@+id/onemountpaymentslist"
+                android:id="@+id/userpaymentlist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@android:color/transparent"

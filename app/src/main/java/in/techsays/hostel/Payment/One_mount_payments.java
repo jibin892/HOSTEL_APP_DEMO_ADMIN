@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -32,12 +31,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import in.techsays.hostel.Adapter.Payment_Adapter;
+import in.techsays.hostel.Location.Tools;
 import in.techsays.hostel.R;
 
 import static java.util.Calendar.MONTH;
@@ -85,8 +86,7 @@ public class One_mount_payments extends AppCompatActivity {
         searchdate= findViewById(R.id.searchdate);
 
 
-        todayscolluction.setVisibility(View.INVISIBLE);
-        sh =  getSharedPreferences("userdata", MODE_PRIVATE);
+         sh =  getSharedPreferences("userdata", MODE_PRIVATE);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
         cugrrentDay = String.valueOf(gsdf.format(new Date()));
         todayscolluction.setOnClickListener(new View.OnClickListener() {
@@ -102,43 +102,55 @@ public class One_mount_payments extends AppCompatActivity {
         et_searchsatrtdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR); // current year
-                int mMonth = c.get(Calendar.MONTH); // current month
-                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-                // date picker dialog
-                DatePickerDialog  datePickerDialog = new DatePickerDialog(One_mount_payments.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
+                Calendar cur_calender = Calendar.getInstance();
+                com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePicker = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+                        new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                // set day of month , month and year value in the edit text
-                                et_searchsatrtdate.setText(dayOfMonth + "-"+ (monthOfYear + 1) + "-" + year);
+                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(Calendar.YEAR, year);
+                                calendar.set(Calendar.MONTH, monthOfYear);
+                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                long date_ship_millis = calendar.getTimeInMillis();
+                                et_searchsatrtdate.setText(Tools.getFormattedDateSimple(date_ship_millis));
                              }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                        },
+                        cur_calender.get(Calendar.YEAR),
+                        cur_calender.get(Calendar.MONTH),
+                        cur_calender.get(Calendar.DAY_OF_MONTH)
+                );
+                //set dark theme
+                datePicker.setThemeDark(false);
+                datePicker.setAccentColor(getResources().getColor(R.color.blue_700));
+                 datePicker.show(getFragmentManager(), "Timepickerdialog");
             }
         });
 
         et_searchend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int mYeare = c.get(Calendar.YEAR); // current year
-                int mMonthe = c.get(Calendar.MONTH); // current month
-                int mDaye = c.get(Calendar.DAY_OF_MONTH); // current day
-                // date picker dialog
-                DatePickerDialog  datePickerDialoge = new DatePickerDialog(One_mount_payments.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
+                Calendar cur_calender = Calendar.getInstance();
+                com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePicker = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+                        new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                // set day of month , month and year value in the edit text
-                                et_searchend.setText(dayOfMonth + "-"+ (monthOfYear + 1) + "-" + year);
+                            public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(Calendar.YEAR, year);
+                                calendar.set(Calendar.MONTH, monthOfYear);
+                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                long date_ship_millis = calendar.getTimeInMillis();
+                                et_searchend.setText(Tools.getFormattedDateSimple(date_ship_millis));
 
                             }
-                        }, mYeare, mMonthe, mDaye);
-                datePickerDialoge.show();
+                        },
+                        cur_calender.get(Calendar.YEAR),
+                        cur_calender.get(Calendar.MONTH),
+                        cur_calender.get(Calendar.DAY_OF_MONTH)
+                );
+                //set dark theme
+                datePicker.setThemeDark(false);
+                datePicker.setAccentColor(getResources().getColor(R.color.blue_700));
+                 datePicker.show(getFragmentManager(), "Timepickerdialog");
             }
         });
 
@@ -173,7 +185,7 @@ public class One_mount_payments extends AppCompatActivity {
 
         adapter = new FirebaseListAdapter<Payment_Adapter>(this, Payment_Adapter.class,
                 R.layout.one_mounth_pay,
-                reference = FirebaseDatabase.getInstance().getReference().child("payment").orderByChild("Date").startAt(et_searchsatrtdate.getText().toString()).endAt( et_searchend.getText().toString())) {
+                reference = FirebaseDatabase.getInstance().getReference().child("payment").orderByChild("paymentdate").startAt(et_searchsatrtdate.getText().toString()).endAt( et_searchend.getText().toString())) {
 
             @Override
             protected void populateView(View v, final Payment_Adapter model, int position) {

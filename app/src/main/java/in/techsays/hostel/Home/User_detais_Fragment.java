@@ -2,7 +2,6 @@ package in.techsays.hostel.Home;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -28,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -68,13 +68,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.protobuf.compiler.PluginProtos;
 import com.squareup.picasso.Picasso;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
@@ -86,6 +87,7 @@ import in.techsays.hostel.Adapter.Homelist;
 import in.techsays.hostel.Adapter.Payment_Adapter;
 import in.techsays.hostel.Approve_details.Approve;
 import in.techsays.hostel.Location.Location_Home;
+import in.techsays.hostel.Location.Tools;
 import in.techsays.hostel.Payment.Payment_view_user;
 import in.techsays.hostel.R;
 
@@ -139,8 +141,9 @@ et_searcfh=root.findViewById(R.id.et_search);
         sh = getActivity().getSharedPreferences("userdata", MODE_PRIVATE);
         Date today = new Date();
 
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-           currentDate = format.format(today);        @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
+        SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
+          currentDate = format.format(today);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
         cugrrentDay = valueOf(gsdf.format(new Date()));
 
         displayNotifications();
@@ -289,24 +292,36 @@ et_searcfh=root.findViewById(R.id.et_search);
                                // addcashmanualludate.setText(currentDate);
 
                                addcashmanualludate.setOnClickListener(new View.OnClickListener() {
+
                                    @Override
                                    public void onClick(View v) {
-                                       final Calendar c = Calendar.getInstance();
-                                       int mYear = c.get(Calendar.YEAR); // current year
-                                       int mMonth = c.get(Calendar.MONTH); // current month
-                                       int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-                                       // date picker dialog
-                                       DatePickerDialog  datePickerDialog = new DatePickerDialog(getActivity(),
+                                        dialogDatePickerDark();
+                                    }
+
+
+                                   private void dialogDatePickerDark() {
+                                       Calendar cur_calender = Calendar.getInstance();
+                                       DatePickerDialog datePicker = DatePickerDialog.newInstance(
                                                new DatePickerDialog.OnDateSetListener() {
-
                                                    @Override
-                                                   public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                                       // set day of month , month and year value in the edit text
-                                                       addcashmanualludate.setText(dayOfMonth + "-"+ (monthOfYear + 1) + "-" + year);
-
+                                                   public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                                       Calendar calendar = Calendar.getInstance();
+                                                       calendar.set(Calendar.YEAR, year);
+                                                       calendar.set(Calendar.MONTH, monthOfYear);
+                                                       calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                                       long date_ship_millis = calendar.getTimeInMillis();
+                                                       addcashmanualludate.setText(Tools.getFormattedDateSimple(date_ship_millis));
                                                    }
-                                               }, mYear, mMonth, mDay);
-                                       datePickerDialog.show();
+                                               },
+                                               cur_calender.get(Calendar.YEAR),
+                                               cur_calender.get(Calendar.MONTH),
+                                               cur_calender.get(Calendar.DAY_OF_MONTH)
+                                       );
+                                       //set dark theme
+                                       datePicker.setThemeDark(false);
+                                       datePicker.setAccentColor(getResources().getColor(R.color.blue_700));
+                                       datePicker.setMinDate(cur_calender);
+                                       datePicker.show(getActivity().getFragmentManager(), "Timepickerdialog");
                                    }
                                });
                                 Picasso.get().load(model.getProfile_image()).into(profilefragmentimageaddcash);

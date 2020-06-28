@@ -99,12 +99,12 @@ public class Notification_Fragment extends Fragment {
         discription = (EditText) root.findViewById(R.id.discriptionnot);
         imagepick = (ImageView) root.findViewById(R.id.imagepick);
 
-
-        Date today = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        String dateToStr = format.format(today);
-        System.out.println(dateToStr);
-        Toast.makeText(getActivity(), dateToStr, Toast.LENGTH_SHORT).show();
+//
+//        Date today = new Date();
+//        SimpleDateFormat format = new SimpleDateFormat("MMMM dd,yyyy");
+//        String dateToStr = format.format(today);
+//        System.out.println(dateToStr);
+//        Toast.makeText(getActivity(), dateToStr.toString(), Toast.LENGTH_SHORT).show();
 
         selectimage_from_gal.setOnClickListener(new View.OnClickListener() {
             @Override

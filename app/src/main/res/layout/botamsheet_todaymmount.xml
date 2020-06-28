@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:text="$500"
                     android:background="@drawable/btn_corner5"
-                    android:textColor="@color/green_A700"
+                    android:textColor="@color/red_A700"
                     android:theme="@style/Button.Primary" />
 
             </LinearLayout>

@@ -9,6 +9,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -36,6 +37,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
 import in.techsays.hostel.About_Us.About;
 import in.techsays.hostel.Animation.ViewAnimation;
 import in.techsays.hostel.Contact_Us.Contact;
@@ -60,6 +63,8 @@ public class Settings_home extends AppCompatActivity {
     LinearLayout setingscontacus,settingsaboutus,settingsrating,settingsshare,settinslogout,settinsreportbug,bt_toggle_input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loadLocale();
+
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -69,9 +74,9 @@ public class Settings_home extends AppCompatActivity {
                 getWindow().setStatusBarColor(Color.BLACK);
             }
         }
+
         setContentView(R.layout.activity_settings_home);
-        sh = getSharedPreferences("userdata", MODE_PRIVATE);
-        userdataload();
+
         initComponent();
 
         settingprofileimage=findViewById(R.id.settingprofileimage);
@@ -85,8 +90,9 @@ public class Settings_home extends AppCompatActivity {
         settingprofilrback=findViewById(R.id.settingprofilrback);
         languagechoose=findViewById(R.id.languagechoose);
         rg = (RadioGroup)findViewById(R.id.radiogroup);
+        languagechoose.setText( getResources().getString(R.string.English));
 
-
+        showlang();
 
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
@@ -94,18 +100,26 @@ public class Settings_home extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
                     case R.id.senglish:
-                        languagechoose.setText("English");
 
+                        setLocale("en");
+                        setlang("English");
+                        languagechoose.setText( getResources().getString(R.string.English));
+                        startActivity(new Intent(Settings_home.this,Home_main.class));
                         break;
                     case R.id.smalayalam:
-                        languagechoose.setText("Malayalam");
 
-
+                        setLocale("ml");
+                        setlang("Malayalam");
+                        languagechoose.setText( getResources().getString(R.string.Malayalam));
+                        group.setSelected(true);
+                        startActivity(new Intent(Settings_home.this,Home_main.class));
                         break;
                     case R.id.shindi:
-                        languagechoose.setText("Hindi");
 
-
+                        setLocale("hi");
+                        setlang("Hindi");
+                        languagechoose.setText( getResources().getString(R.string.Hindi));
+                        startActivity(new Intent(Settings_home.this,Home_main.class));
                         break;
 
                 }
@@ -223,38 +237,9 @@ public class Settings_home extends AppCompatActivity {
     }
 
 
-    private void userdataload() {
 
 
 
-        DatabaseReference mUserDatabase = FirebaseDatabase.getInstance().getReference().child("adminapproved").child(sh.getString("usernodeuid",null));
-        mUserDatabase.keepSynced(true);
-
-        mUserDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    User userr = dataSnapshot.getValue(User.class);
-
-                    email=userr.getEmail().toString();
-                    profilepic=userr.getProfile_image().toString();
-                    name=userr.getName().toString();
-
-                    Picasso.get().load(userr.getProfile_image()).into(settingprofileimage);
-
-
-                }
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
     private void logout() {
 
         AlertDialog.Builder   builder;
@@ -276,7 +261,8 @@ public class Settings_home extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 SharedPreferences.Editor e = sh.edit();
+                FirebaseAuth.getInstance().signOut();
+                SharedPreferences.Editor e = sh.edit();
                 e.clear();
                 e.apply();
                 startActivity(new Intent(Settings_home.this, Login.class));
@@ -335,5 +321,42 @@ public class Settings_home extends AppCompatActivity {
         } else {
             ViewAnimation.collapse(lyt_expand_info);
         }
+    }
+    public void setLocale(String hi) {
+        Locale locale=new Locale(hi);
+        Locale.setDefault(locale);
+        Configuration configuration=new Configuration();
+        configuration.locale=locale;
+        getResources().updateConfiguration(configuration,getResources().getDisplayMetrics());
+        SharedPreferences sh=getSharedPreferences("Settings",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sh.edit();
+        editor.putString("my",hi);
+        // editor.putString("lang",lang);
+        editor.apply();
+    }
+    private void loadLocale() {
+
+        SharedPreferences sharedPreferences=getSharedPreferences("Settings",MODE_PRIVATE);
+        String language=sharedPreferences.getString("my","");
+        // String language1=sharedPreferences.getString("lang","");
+        //  languagechoose.setText(language1);
+        setLocale(language);
+
+
+    }
+    public void setlang(String s)
+    {
+        SharedPreferences sh=getSharedPreferences("Settingslang",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sh.edit();
+        editor.putString("mylang",s);
+        // editor.putString("lang",lang);
+        editor.apply();
+    }
+    public  void showlang()
+    {
+        SharedPreferences sharedPreferences=getSharedPreferences("Settingslang",MODE_PRIVATE);
+        String language=sharedPreferences.getString("mylang","");
+        //   Toast.makeText(context,language, Toast.LENGTH_SHORT).show();
+        languagechoose.setText(language);
     }
 }

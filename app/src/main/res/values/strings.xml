@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HOSTEL APPLICATION ADMIN</string>
+    <string name="app_name">HOSTEL APPLICATION</string>
     <string name="sendotp_key">198105AtMheX9RFz5a83cffc</string>
 
     <string name="title_home">Home</string>
@@ -18,8 +18,132 @@
         \n\nNulla id lectus metus. Maecenas a lorem in odio auctor facilisis non vitae nunc. Sed malesuada volutpat massa. Praesent sit amet lacinia augue, mollis tempor dolor.
     </string>
 
+
+    <string name="aboutus">AboutUs</string>
+    <string name="version">Version</string>
+    <string name="changelog">Changelog</string>
+    <string name="hide">HIDE</string>
+    <string name="licence">Licence</string>
+    <string name="free">Free</string>
+    <string name="powerd_by">Powerd By</string>
+    <string name="techsays">Techsays Software Soloution Pvt Ltd</string>
+    <string name="kochi">Kochi</string>
+    <string name="download">Download</string>
+    <string name="download_from_playstore">Download From Playstore</string>
+    <string name="adhaar_card_details">Aadhar Card Details</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="year_of_brith">Year Of Brith</string>
+    <string name="care_of">CareOf</string>
+    <string name="village">Village</string>
+    <string name="post_office">PostOffice</string>
+    <string name="district">District</string>
+    <string name="State">State</string>
+    <string name="post_code">Post Code</string>
+    <string name="contactus">Contact Us</string>
+    <string name="hostel_owner">Hostel Owner</string>
+    <string name="owner_name">Manikuttan</string>
+    <string name="owner_no">+919847423836</string>
+    <string name="hostel_warden">Hostel Warden</string>
+    <string name="warden_name">Shyam</string>
+    <string name="warden_no">+919847423836</string>
+    <string name="address">Address</string>
+    <string name="kaloor_address">Banerji Road, Kaloor Back Side of Metro Station, Kaloor, Ernakulam, Kerala 682017</string>
+    <string name="hostel_name">Vinayaka Boys Hostel</string>
+    <string name="Gents_Hostel_Kaloor">Gents Hostel Kaloor</string>
+    <string name="Gents_Hostel_Ernakulam">Gents Hostel Ernakulam, Hostel in Kaloor</string>
+    <string name="Hostel">Hostel</string>
+    <string name="Welcome_to">Welcome to</string>
+    <string name="Phone_Number">Phone Number</string>
+    <string name="phone">phone</string>
+    <string name="Home_Phone_Number">Home Phone Number</string>
+    <string name="Email">Email</string>
+    <string name="mail_com">roberts.turner@mail.com</string>
+    <string name="Age">Age</string>
+    <string name="DOB">DOB</string>
+    <string name="Male">Male</string>
+    <string name="Staying_Puropse">Staying Puropse</string>
+    <string name="Date_Of_Joining">Date Of Joining</string>
+    <string name="Date">Date</string>
+    <string name="Adhaar_Card_name">Aadhar Card name</string>
+    <string name="Adhaar_Card_number">Aadhar Card Number</string>
+    <string name="Adhaar_card_Front_Side">Aadhar card Front Side</string>
+    <string name="Adhaar_card_Back_Side">Aadhar card Back Side</string>
+    <string name="Person_Image">Person Image</string>
+    <string name="REGISTER_NOW">REGISTER NOW</string>
+    <string name="version_no">4.2</string>
+    <string name="Create_New_Account">Create New Account</string>
+    <string name="cntrycode">+91</string>
+    <string name="Password">Password</string>
+    <string name="Confirm_Password">Confirm Password</string>
+    <string name="Next">Next</string>
+    <string name="Registered_Email">Registered Email</string>
+    <string name="Reset_Password">Reset Password</string>
+    <string name="min_away">12 min away</string>
+    <string name="Username">Username</string>
+    <string name="Sign_In">Sign In</string>
+    <string name="Create_New_account">Create New  account ?</string>
+    <string name="Hello_World">Hello World!</string>
+    <string name="PAYMENT">PAYMENT</string>
+    <string name="Googlepay">Googlepay</string>
+    <string name="Phonepe">Phonepe</string>
+    <string name="Paytm">Paytm</string>
+    <string name="Bhim">Bhim</string>
+    <string name="Amazonpay">Amazonpay</string>
+    <string name="Card_Payment">Card Payment</string>
+    <string name="Back_To_Home">Back To Home</string>
+    <string name="SETTINGS">SETTINGS</string>
+    <string name="Select_Language">Select Language</string>
+    <string name="English_US">English, US</string>
+    <string name="English">English</string>
+    <string name="Malayalam">Malayalam</string>
+    <string name="Hindi">Hindi</string>
+    <string name="Application">Application</string>
+    <string name="Rateing">Rating</string>
+    <string name="Share">Share</string>
+    <string name="Logout">Logout</string>
+    <string name="More">More</string>
+    <string name="Report_Bug">Report Bug</string>
+    <string name="VERIFICATION">VERIFICATION</string>
+    <string name="OTP_has_been_sent">OTP has been sent to you on your mobile phone. Please enter it below</string>
+    <string name="Veryfy">Veryfy</string>
+    <string name="Resend_via_call">Resend via call ()</string>
+    <string name="Details_Content">Content Details</string>
+    <string name="CLOSE">CLOSE</string>
+    <string name="Scan_Adhar">Scan Your Adhar Card</string>
+    <string name="scan">SCAN</string>
+    <string name="skip">SKIP</string>
+    <string name="selfi_take">Take A selfi</string>
+    <string name="Take_Pic">Take Pic</string>
+    <string name="Adhaar_card_Front_Side_pic">Adhaar card Front Side photo</string>
+    <string name="take_Adhaar_Front_Side_pic">Take Adhaar Front Side Photo</string>
+    <string name="Adhaar_back_Side_pic">Adhaar card back Side photo</string>
+    <string name="take_Adhaar_back_Side_pic">Take Adhaar card back Side photo</string>
+    <string name="Confirmation_message">Confirmation message</string>
+    <string name="Are_you_sure_you_want_to_logout">Are you sure you want to logout</string>
+    <string name="ok">OK</string>
+    <string name="CANCEL">CANCEL</string>
+    <string name="Confirmation">Confirmation</string>
+    <string name="Back_Lo_Login_page">Back Lo Login page</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="Succsefull">Succsefull</string>
+    <string name="Success">Success</string>
+    <string name="New_Badge">New Badge !</string>
+    <string name="GO_TO_GMAIL">GO TO GMAIL</string>
+    <string name="RateUs">Rate Us</string>
+    <string name="dd_mm_yy">20/01/2020</string>
+    <string name="Room_Number">Room Number</string>
+    <string name="United_State">United State</string>
+    <string name="UPDATE">UPDATE</string>
+    <string name="Location">Location</string>
+    <string name="Setings">Settings</string>
+
+
+
     <string name="long_lorem_ipsum_2">
         Vivamus porttitor, erat at aliquam mollis, risus ligula suscipit metus, id semper nisi dui lacinia leo. Praesent at feugiat sem. Vivamus consectetur arcu sit amet metus efficitur dapibus. Sed metus ligula, efficitur quis finibus nec, pellentesque nec nulla. Nunc nec magna iaculis turpis vehicula condimentum id lobortis lectus.
         \n\nQuisque augue diam, convallis nec mollis in, placerat nec elit. Aliquam non erat tristique, consequat tortor ultricies, sodales erat. Aliquam quis enim eu nulla facilisis sollicitudin eu mollis mauris. Donec ornare urna non libero volutpat tempus. Mauris elementum egestas ex, a laoreet urna. Ut a magna mattis, sodales massa a, blandit justo.
     </string>
+
 </resources>
