@@ -114,6 +114,7 @@ public class User_detais_Fragment extends Fragment {
     public static final int DIALOG_QUEST_CODE = 300;
     SharedPreferences roomnumber,sh;
     EditText et_searcfh;
+    String firstWkDay;
      String payid;
     RelativeLayout parent_view;
     private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
@@ -135,6 +136,13 @@ public class User_detais_Fragment extends Fragment {
 et_searcfh=root.findViewById(R.id.et_search);
 
 
+        Calendar cal = Calendar.getInstance();
+        cal.get(Calendar.DAY_OF_WEEK);
+        cal.set(Calendar.DAY_OF_WEEK, cal.SUNDAY);
+          firstWkDay = String.valueOf(cal.getTime());
+        //cal.set(Calendar.DAY_OF_WEEK, cal.SUNDAY);
+        cal.add(Calendar.DAY_OF_WEEK, 6);
+        String lastWkDay =  String.valueOf(cal.getTime());
 
 
 
@@ -366,8 +374,9 @@ else {
     map.put("personPhoto", model.getProfile_image());
     map.put("Uid", model.getUid());
     map.put("Day", cugrrentDay);
-     map.put("Mounth",mm );
-     map.put("Date", addcashmanualludate.getText().toString());
+    map.put("Days", firstWkDay);
+    map.put("Mounth",mm );
+    map.put("Date", addcashmanualludate.getText().toString());
     map.put("Payment_Method", "Cash Payment");
     map.put("Roomnumber", model.getRoom_Number());
     map.put("ammount", cashammountadd.getText().toString());

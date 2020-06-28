@@ -99,12 +99,14 @@ public class Notification_Fragment extends Fragment {
         discription = (EditText) root.findViewById(R.id.discriptionnot);
         imagepick = (ImageView) root.findViewById(R.id.imagepick);
 
-//
-//        Date today = new Date();
-//        SimpleDateFormat format = new SimpleDateFormat("MMMM dd,yyyy");
-//        String dateToStr = format.format(today);
-//        System.out.println(dateToStr);
-//        Toast.makeText(getActivity(), dateToStr.toString(), Toast.LENGTH_SHORT).show();
+//        Calendar cal = Calendar.getInstance();
+//        cal.get(Calendar.DAY_OF_WEEK);
+//        cal.set(Calendar.DAY_OF_WEEK, cal.SUNDAY);
+//        String firstWkDay = String.valueOf(cal.getTime());
+//        //cal.set(Calendar.DAY_OF_WEEK, cal.SUNDAY);
+//        cal.add(Calendar.DAY_OF_WEEK, 6);
+//        String lastWkDay =  String.valueOf(cal.getTime());
+
 
         selectimage_from_gal.setOnClickListener(new View.OnClickListener() {
             @Override

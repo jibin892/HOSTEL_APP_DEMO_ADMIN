@@ -2,7 +2,6 @@ package in.techsays.hostel.Settings;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -28,23 +27,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
-import in.techsays.hostel.About_Us.About;
+import in.techsays.hostel.Filter.Filter;
 import in.techsays.hostel.Animation.ViewAnimation;
-import in.techsays.hostel.Contact_Us.Contact;
+import in.techsays.hostel.Filter_ammounu_day_by_day.Filter_ammount;
 import in.techsays.hostel.Home.Home_main;
 import in.techsays.hostel.Login_and_Registration.Login;
-import in.techsays.hostel.Login_and_Registration.User;
 import in.techsays.hostel.R;
 
 import static in.techsays.hostel.Location.Tools.toggleArrow;
@@ -142,7 +134,7 @@ public class Settings_home extends AppCompatActivity {
         setingscontacus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Settings_home.this, Contact.class));
+                startActivity(new Intent(Settings_home.this, Filter_ammount.class));
 
             }
         });
@@ -150,7 +142,7 @@ public class Settings_home extends AppCompatActivity {
         settingsaboutus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Settings_home.this, About.class));
+                startActivity(new Intent(Settings_home.this, Filter.class));
 
             }
         });

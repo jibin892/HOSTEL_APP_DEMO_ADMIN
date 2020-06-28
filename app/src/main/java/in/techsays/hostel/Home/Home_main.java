@@ -32,8 +32,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Objects;
 
-import in.techsays.hostel.About_Us.About;
-import in.techsays.hostel.Contact_Us.Contact;
+import in.techsays.hostel.Filter.Filter;
+import in.techsays.hostel.Filter_ammounu_day_by_day.Filter_ammount;
 import in.techsays.hostel.Login_and_Registration.Login;
 import in.techsays.hostel.Payment.One_mount_payments;
 import in.techsays.hostel.Payment.Payment_View_Admin;
@@ -185,7 +185,7 @@ public class Home_main extends AppCompatActivity {
 
         if (id == R.id.contacthome) {
 
-            Intent i1 = new Intent(Home_main.this, Contact.class);
+            Intent i1 = new Intent(Home_main.this, Filter_ammount.class);
             startActivity(i1);
         }
         if (id == R.id.settingshome) {
@@ -209,7 +209,7 @@ public class Home_main extends AppCompatActivity {
         }
         if (id == R.id.abouthome) {
 
-            Intent i3 = new Intent(Home_main.this, About.class);
+            Intent i3 = new Intent(Home_main.this, Filter.class);
             startActivity(i3);
         }
         if (id == R.id.homenavlogout) {

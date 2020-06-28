@@ -22,9 +22,9 @@
         <activity android:name=".Approve_details.Approve" />
         <activity android:name=".Login_and_Registration.Passwored" />
         <activity android:name=".Settings.Settings_home" />
-        <activity android:name=".About_Us.About" />
+        <activity android:name=".Filter.Filter" />
 
-        <activity android:name=".Contact_Us.Contact" />
+        <activity android:name=".Filter_ammounu_day_by_day.Filter_ammount" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

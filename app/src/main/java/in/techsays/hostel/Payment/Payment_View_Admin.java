@@ -1,8 +1,12 @@
 package in.techsays.hostel.Payment;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -13,11 +17,18 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -25,43 +36,45 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import in.techsays.hostel.Adapter.Homelist;
 import in.techsays.hostel.Adapter.Payment_Adapter;
+import in.techsays.hostel.Adapter.Payment_Admin_View_ViewHolder;
 import in.techsays.hostel.R;
 
 public class Payment_View_Admin extends AppCompatActivity {
-    FirebaseListAdapter<Payment_Adapter> adapter;
-    ListView notificationlist;
-    Query reference;
-    private BottomSheetDialog mBottomSheetDialog;
-    private ShimmerFrameLayout mShimmerViewContainer;
-    final int RequestPermissionCode=1;
-    ArrayAdapter<String> arrayAdapter;
-    public static final int DIALOG_QUEST_CODE = 300;
-    SharedPreferences roomnumber,sh;
-    EditText et_searcfh;
-    TextView todayfuulammount;
-    // int sum ;
-    View view;
+    LinearLayoutManager mLayoutManager; //for sorting
+    SharedPreferences mSharedPref; //for saving sort settings
+    RecyclerView mRecyclerView;
+    FirebaseDatabase mFirebaseDatabase;
+    DatabaseReference mRef;
+    ShimmerFrameLayout mShimmerViewContainer;
     String amounttotal;
-    ImageView todayscolluction;
-    String cugrrentDay;
+    private BottomSheetDialog mBottomSheetDialog;
+    TextView todayfuulammount;
+    ImageButton todayscolluctionadninview;
+    EditText et_search;
+    String  start,end;
+    View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,168 +87,179 @@ public class Payment_View_Admin extends AppCompatActivity {
             }
         }
         setContentView(R.layout.activity_payment__view__admin);
-        notificationlist =  findViewById(R.id.userpaymentlistadminview);
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
         mShimmerViewContainer =  findViewById(R.id.shimmer_view_containerpaymentadminview);
-        mShimmerViewContainer.startShimmer();
-        et_searcfh= findViewById(R.id.et_search);
-        todayscolluction= findViewById(R.id.todayscolluctionadminview);
+mShimmerViewContainer.startShimmer();
+        //RecyclerView
+        todayscolluctionadninview  = findViewById(R.id.todayscolluctionadninview);
+        et_search = findViewById(R.id.et_searchadmibviewpayment);
 
-        todayscolluction.setVisibility(View.INVISIBLE);
-        sh =  getSharedPreferences("userdata", MODE_PRIVATE);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
-        cugrrentDay = String.valueOf(gsdf.format(new Date()));
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+
+        //set layout as LinearLayout
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        //send Query to FirebaseDatabase
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mRef = mFirebaseDatabase.getReference("payment");
 
 
-        displayNotifications();
+        et_search.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String query = et_search.getText().toString();
+
+                Query firebaseSearchQuery = mRef.orderByChild("personName").startAt(query).endAt(query + "\uf8ff");
+
+                FirebaseRecyclerAdapter<Payment_Adapter, Payment_Admin_View_ViewHolder> firebaseRecyclerAdapter =
+                        new FirebaseRecyclerAdapter<Payment_Adapter, Payment_Admin_View_ViewHolder>(
+                                Payment_Adapter.class,
+                                R.layout.payment_list_admin_view,
+                                Payment_Admin_View_ViewHolder.class,
+                                firebaseSearchQuery
+                        ) {
+                            @Override
+                            protected void populateViewHolder(Payment_Admin_View_ViewHolder viewHolder, Payment_Adapter model, int position) {
+                                viewHolder.setDetails(getApplicationContext(), model.getPersonName(), model.getAmmount(), model.getPersonPhoto(), model.getRoomnumber(), model.getPayment_Method(),
+                                        model.getTransaction_id(), model.getPersonEmail(), model.getPaymentTime(), model.getPaymentdate());
+
+                            }
+                                @Override
+                            public Payment_Admin_View_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                                Payment_Admin_View_ViewHolder viewHolder = super.onCreateViewHolder(parent, viewType);
 
 
+                                return viewHolder;
+                            }
 
-        todayscolluction.setOnClickListener(new View.OnClickListener() {
+
+                        };
+
+                //set adapter to recyclerview
+                mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+            }
+        });
+        todayscolluctionadninview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadtodaypayment();
             }
-
-
         });
 
 
 
     }
-    private void displayNotifications() {
-        adapter = new FirebaseListAdapter<Payment_Adapter>(this, Payment_Adapter.class,
-                R.layout.payment_list_admin_view,
-                reference = FirebaseDatabase.getInstance().getReference().child("payment")) {
-
-            @Override
-            protected void populateView(View v, final Payment_Adapter model, int position) {
-
-                final TextView paymentname = (TextView) v.findViewById(R.id.paymentnameadminview);
-                final ImageView paymentimage = v.findViewById(R.id.paymentimageadminview);
-                final TextView paymentemail = (TextView) v.findViewById(R.id.paymentemailadminview);
-                final TextView paymenttransactionid = (TextView) v.findViewById(R.id.paymenttransactionidadminview);
-                final TextView paymentammount = (TextView) v.findViewById(R.id.paymentammountadminview);
-                final TextView paymenttime = (TextView) v.findViewById(R.id.paymenttimeadminview);
-                final TextView paymentdate = (TextView) v.findViewById(R.id.paymentdateadminview);
-                final TextView roomnumberpayment = (TextView) v.findViewById(R.id.roomnumberpaymentadminview);
-
-                final TextView todaypaymetmethedtext = (TextView) v.findViewById(R.id.adminviespaymenton);
-
-                final LinearLayout todaypaymentmethod = (LinearLayout) v.findViewById(R.id.adminviewpaymetsl);
 
 
 
 
-                if (model.getPayment_Method().contains("Cash Payment")){
-
-                    todaypaymentmethod.setBackgroundColor(getResources().getColor(R.color.red_A700));
-
-                    todaypaymetmethedtext.setText(model.getPayment_Method());
-
-                }
-                else {
-                    todaypaymentmethod.setBackgroundColor(getResources().getColor(R.color.green_A700));
-                    todaypaymetmethedtext.setText(model.getPayment_Method());
-
-                }
-
-                if(model.getAmmount()==null)
-                {
-                    todayscolluction.setVisibility(View.INVISIBLE);
-                }
-                else {
-                    todayscolluction.setVisibility(View.VISIBLE);
-                }
-
-                paymentname.setText(model.getPersonName());
-                Picasso.get().load(model.getPersonPhoto()).into(paymentimage);
-                paymentemail.setText(model.getPersonName());
-                paymenttransactionid.setText(model.getTransaction_id());
-                paymentammount.setText(model.getAmmount());
-                paymenttime.setText(model.getPaymentTime());
-                paymentdate.setText(model.getPaymentdate());
-                roomnumberpayment.setText(model.getRoomnumber());
-
-
-
-
-
-
-                reference.addValueEventListener(new ValueEventListener() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseRecyclerAdapter<Payment_Adapter, Payment_Admin_View_ViewHolder> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<Payment_Adapter, Payment_Admin_View_ViewHolder>(
+                        Payment_Adapter.class,
+                        R.layout.payment_list_admin_view,
+                        Payment_Admin_View_ViewHolder.class,
+                        mRef) {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    protected void populateViewHolder(Payment_Admin_View_ViewHolder viewHolder, Payment_Adapter model, int position) {
+                        viewHolder.setDetails(getApplicationContext(), model.getPersonName(), model.getAmmount(), model.getPersonPhoto(),model.getRoomnumber(),model.getPayment_Method(),
+                                model.getTransaction_id(),model.getPersonEmail(),model.getPaymentTime(),model.getPaymentdate());
 
-
-
-
-                        if(dataSnapshot.exists()){
 //
-                            mShimmerViewContainer.stopShimmer();
-                            mShimmerViewContainer.setVisibility(View.INVISIBLE);
+//                        if(model.getAmmount()==null){
+//
+//                            mShimmerViewContainer.setVisibility(View.VISIBLE);
+//                            mShimmerViewContainer.startShimmer();
+//
+//                        }
+//                        else {
+//
+//                            mShimmerViewContainer.setVisibility(View.INVISIBLE);
+//                            mShimmerViewContainer.stopShimmer();
+//                        }
 
 
 
-                            int  sum=0;
 
-                            for (DataSnapshot ds:dataSnapshot.getChildren()
-                            ) {
-                                Payment_Adapter p=ds.getValue(Payment_Adapter.class);
-
-
-                                int am=Integer.parseInt(p.getAmmount());
-                                sum=sum+am;
-                                amounttotal=String.valueOf(sum);
-
-
-
-                            }
-                        }
-
-
-                        else {
-                            mShimmerViewContainer.startShimmer();
-                            mShimmerViewContainer.setVisibility(View.VISIBLE);
-                            todayscolluction.setVisibility(View.INVISIBLE);
-
-                        }
 
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    public Payment_Admin_View_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                        Payment_Admin_View_ViewHolder viewHolder = super.onCreateViewHolder(parent, viewType);
+
+
+
+                        return viewHolder;
+                    }
+
+                };
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+
+
+                if(dataSnapshot.exists()){
+//
+                    mShimmerViewContainer.stopShimmer();
+                    mShimmerViewContainer.setVisibility(View.INVISIBLE);
+
+
+
+                    int  sum=0;
+
+                    for (DataSnapshot ds:dataSnapshot.getChildren()
+                    ) {
+                        Payment_Adapter p=ds.getValue(Payment_Adapter.class);
+
+
+                        int am=Integer.parseInt(p.getAmmount());
+                        sum=sum+am;
+                        amounttotal=String.valueOf(sum);
+
+
 
                     }
-                });
-
-
-
-
-                //  }
+                }
 
 
 
 
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
 
-        };
-
-
-        notificationlist.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-
-
-
-
+        //set adapter to recyclerview
+        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
+
+
 
     private void loadtodaypayment() {
 
         view = getLayoutInflater().inflate(R.layout.botamsheet_total_amount, null);
-        todayfuulammount=view.findViewById(R.id.todayfuulammount1);
-        todayfuulammount.setText("Rs:"+String.valueOf(amounttotal));
+        todayfuulammount = view.findViewById(R.id.todayfuulammount1);
+        todayfuulammount.setText("Rs:" + String.valueOf(amounttotal));
 
         (view.findViewById(R.id.close123)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,8 +267,6 @@ public class Payment_View_Admin extends AppCompatActivity {
                 mBottomSheetDialog.hide();
             }
         });
-
-
 
 
         mBottomSheetDialog = new BottomSheetDialog(this);
@@ -267,3 +289,9 @@ public class Payment_View_Admin extends AppCompatActivity {
     }
 
 }
+
+
+
+
+
+

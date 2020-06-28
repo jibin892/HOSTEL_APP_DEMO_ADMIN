@@ -84,7 +84,7 @@ public class One_mount_payments extends AppCompatActivity {
         et_searchend= findViewById(R.id.et_searchend);
 
         searchdate= findViewById(R.id.searchdate);
-
+displayNotifications();
 
          sh =  getSharedPreferences("userdata", MODE_PRIVATE);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat gsdf = new SimpleDateFormat("dd");
@@ -182,10 +182,17 @@ public class One_mount_payments extends AppCompatActivity {
 //
 //        String st=String.valueOf(firstDateOfPreviousMonth);
 //        String en=String.valueOf(lastDateOfPreviousMonth);
+        Calendar cal = Calendar.getInstance();
+        cal.get(Calendar.DAY_OF_WEEK);
+        cal.set(Calendar.DAY_OF_WEEK, cal.SUNDAY);
+        String firstWkDay = String.valueOf(cal.getTime());
+        //cal.set(Calendar.DAY_OF_WEEK, cal.SUNDAY);
+        cal.add(Calendar.HOUR_OF_DAY, 1);
+        String lastWkDay =  String.valueOf(cal.getTime());
 
         adapter = new FirebaseListAdapter<Payment_Adapter>(this, Payment_Adapter.class,
                 R.layout.one_mounth_pay,
-                reference = FirebaseDatabase.getInstance().getReference().child("payment").orderByChild("paymentdate").startAt(et_searchsatrtdate.getText().toString()).endAt( et_searchend.getText().toString())) {
+                reference = FirebaseDatabase.getInstance().getReference().child("payment").orderByChild("paymentdate").startAt(firstWkDay).endAt(lastWkDay)) {
 
             @Override
             protected void populateView(View v, final Payment_Adapter model, int position) {
